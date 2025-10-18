@@ -1,3 +1,6 @@
 [submodule "src/lib"]
 	path = src/lib
 	url = ../shylib
+[submodule "src/core/ed-journal-schemas"]
+	path = src/core/ed-journal-schemas
+	url = https://github.com/jixxed/ed-journal-schemas

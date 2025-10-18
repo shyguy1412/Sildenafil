@@ -41,12 +41,6 @@ fn main(mut ctx: ModuleContext) {
         os => return ctx.throw_error(format!("`{}` is currently not supported", os)), //(ctx.error(format!("`{}` is currently not supported", os))?),
     };
 
-    let baz: Option<Vec<f64>> = None;
-    let foo:Vec<f64> = vec![];
-
-    baz.to_js(&mut ctx);
-    foo.to_js(&mut ctx);
-
     std::thread::spawn(move || {
         let runtime = tokio::runtime::Runtime::new().unwrap();
         runtime.block_on(event_loop(events_location));
@@ -63,6 +57,11 @@ async fn event_loop(events_location: String) {
     loop {
         clock.tick().await;
         //detect and dispatch all events
+
+        //read dir
+        //pick latest log
+        //read log
+        //parse events 
     }
 }
 

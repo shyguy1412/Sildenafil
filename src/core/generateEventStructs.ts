@@ -43,7 +43,7 @@ for (const schema of schemas) {
   props.push(...transformSchemaToProperties(schema.content));
 
   eventStructs.push(`\
-#[derive(Clone, Debug, Event)]
+#[derive(Clone, Debug, Event, Transferable)]
 #[allow(non_snake_case)]
 pub struct ${schema.path.replace(/.*\/(.*?)\.json$/, '$1')} {${props
       .map(structPropToString)
@@ -103,8 +103,18 @@ impl Transferable for FLEETCARRIER_DISTANCE_TRAVELLEDEnum {
 }
 `;
 
+const eventMap = `
+#[derive(Clone, Debug, Transferable)]
+pub struct EventMap {
+${schemas
+    .map(schema => schema.path.replace(/.*\/(.*?)\.json$/, "$1"))
+    .reduce((prev, cur) => `${prev}  ${cur}:Option<${cur}>,\n`, '')
+  }
+}
+`;
+
 const addedAndRemoveStructs = '';
-const generatedModule = imports + generatedEvents + generatedStructs + fleetCarrierEnum + addedAndRemoveStructs;
+const generatedModule = imports + eventMap + generatedEvents + generatedStructs + fleetCarrierEnum + addedAndRemoveStructs;
 
 Deno.writeTextFileSync('./events.rs', generatedModule, { create: true });
 

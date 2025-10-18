@@ -134,3 +134,7 @@ build
 
 # rust build fragements
 target
+
+# core build
+src/core/package/core.d.ts
+src/core/package/core.node

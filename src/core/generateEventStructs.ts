@@ -42,10 +42,13 @@ for (const schema of schemas) {
 
   props.push(...transformSchemaToProperties(schema.content));
 
+  const ident = schema.path.replace(/.*\/(.*?)\.json$/, '$1');
+
   eventStructs.push(`\
-#[derive(Clone, Debug, Event, Transferable)]
+#[derive(Clone, Debug, Event)]
+#[event_name("${ident}")]
 #[allow(non_snake_case)]
-pub struct ${schema.path.replace(/.*\/(.*?)\.json$/, '$1')} {${props
+pub struct ${ident} {${props
       .map(structPropToString)
       .reduce((prev, cur) => `${prev}\n  ${cur}`, '  ')
     }\n}`
@@ -104,7 +107,8 @@ impl Transferable for FLEETCARRIER_DISTANCE_TRAVELLEDEnum {
 `;
 
 const eventMap = `
-#[derive(Clone, Debug, Transferable)]
+#[derive(Clone, Debug)]
+#[allow(non_snake_case)]
 pub struct EventMap {
 ${schemas
     .map(schema => schema.path.replace(/.*\/(.*?)\.json$/, "$1"))

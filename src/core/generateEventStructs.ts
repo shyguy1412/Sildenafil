@@ -61,7 +61,7 @@ const generatedStructs = internalStructs.entries().reduce((prev, [ident, schema]
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct ${ident}Struct {
+pub struct ${ident}Struct {\
 ${transformSchemaToProperties(schema)
     .map(structPropToString)
     .reduce((prev, cur) => `${prev}\n  ${cur}`, '  ')
@@ -168,11 +168,15 @@ function schemaPropertyToStructType(prop: any, parent_title?: string): string {
       return 'bool';
 
     case 'object':
-      internalStructs.set(title, prop);
+      //The NavRouteClear event has items without properties since the array is always empty
+      //This overwrites the RouteStruct to be empty
+      //Only creating structs that actually have props prevents this
+      if ("properties" in prop)
+        internalStructs.set(title, prop);
       return title + "Struct";
 
     case 'array':
-      internalStructs.set(title, prop.items);
+      // internalStructs.set(title, prop.items);
       //special case for BackpackChange event
       if (title == "Added" || title == "Removed") {
         return `Vec<${schemaPropertyToStructType(prop.items, "ChangeEntry")}>`;

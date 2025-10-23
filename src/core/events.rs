@@ -3659,8 +3659,7 @@ pub struct LaunchDrone {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct ItemCommonStruct {
-  
+pub struct ItemCommonStruct {  
   Name: String,
   Name_Localised: Option<String>,
   OwnerID: f64,
@@ -3671,8 +3670,7 @@ pub struct ItemCommonStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct ComponentCommonStruct {
-  
+pub struct ComponentCommonStruct {  
   Name: String,
   OwnerID: f64,
   Count: f64,
@@ -3683,8 +3681,7 @@ pub struct ComponentCommonStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct ConsumableCommonStruct {
-  
+pub struct ConsumableCommonStruct {  
   Name: String,
   Name_Localised: Option<String>,
   OwnerID: f64,
@@ -3694,8 +3691,7 @@ pub struct ConsumableCommonStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct DataCommonStruct {
-  
+pub struct DataCommonStruct {  
   Name: String,
   OwnerID: f64,
   MissionID: Option<f64>,
@@ -3706,8 +3702,7 @@ pub struct DataCommonStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct ChangeEntryCommonStruct {
-  
+pub struct ChangeEntryCommonStruct {  
   Name: String,
   Name_Localised: Option<String>,
   OwnerID: f64,
@@ -3719,23 +3714,14 @@ pub struct ChangeEntryCommonStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct StationFactionStruct {
-  
+pub struct StationFactionStruct {  
   Name: String,
 }
 
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct StationServicesStruct {
-  
-}
-
-#[derive(Clone, Debug, Transferable)]
-#[allow(non_snake_case)]
-#[allow(non_camel_case_types)]
-pub struct StationEconomiesStruct {
-  
+pub struct StationEconomiesStruct {  
   Name: String,
   Name_Localised: Option<String>,
   Proportion: f64,
@@ -3744,8 +3730,7 @@ pub struct StationEconomiesStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct LandingPadsStruct {
-  
+pub struct LandingPadsStruct {  
   Small: f64,
   Medium: f64,
   Large: f64,
@@ -3754,8 +3739,7 @@ pub struct LandingPadsStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct SignalsStruct {
-  
+pub struct SignalsStruct {  
   Type: String,
   Type_Localised: Option<String>,
   Count: f64,
@@ -3764,8 +3748,7 @@ pub struct SignalsStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct GenusesStruct {
-  
+pub struct GenusesStruct {  
   Genus: String,
   Genus_Localised: Option<String>,
 }
@@ -3773,29 +3756,7 @@ pub struct GenusesStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct AddedStruct {
-  
-}
-
-#[derive(Clone, Debug, Transferable)]
-#[allow(non_snake_case)]
-#[allow(non_camel_case_types)]
-pub struct RemovedStruct {
-  
-}
-
-#[derive(Clone, Debug, Transferable)]
-#[allow(non_snake_case)]
-#[allow(non_camel_case_types)]
-pub struct StarPosStruct {
-  
-}
-
-#[derive(Clone, Debug, Transferable)]
-#[allow(non_snake_case)]
-#[allow(non_camel_case_types)]
-pub struct FactionsStruct {
-  
+pub struct FactionsStruct {  
   Name: String,
   FactionState: String,
   Government: String,
@@ -3815,8 +3776,7 @@ pub struct FactionsStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct SystemFactionStruct {
-  
+pub struct SystemFactionStruct {  
   Name: String,
   FactionState: Option<String>,
 }
@@ -3824,15 +3784,7 @@ pub struct SystemFactionStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct PowersStruct {
-  
-}
-
-#[derive(Clone, Debug, Transferable)]
-#[allow(non_snake_case)]
-#[allow(non_camel_case_types)]
-pub struct PowerplayConflictProgressStruct {
-  
+pub struct PowerplayConflictProgressStruct {  
   Power: String,
   ConflictProgress: f64,
 }
@@ -3840,8 +3792,7 @@ pub struct PowerplayConflictProgressStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct ConflictsStruct {
-  
+pub struct ConflictsStruct {  
   WarType: String,
   Status: String,
   Faction1: Faction1Struct,
@@ -3851,8 +3802,7 @@ pub struct ConflictsStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct ThargoidWarStruct {
-  
+pub struct ThargoidWarStruct {  
   CurrentState: String,
   NextStateSuccess: Option<String>,
   NextStateFailure: Option<String>,
@@ -3865,22 +3815,26 @@ pub struct ThargoidWarStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct RouteStruct {
-  
+pub struct RouteStruct {  
+  StarSystem: String,
+  SystemAddress: f64,
+  StarPos: Vec<f64>,
+  StarClass: String,
 }
 
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct DiscoveredStruct {
-  
+pub struct DiscoveredStruct {  
+  SystemName: String,
+  SystemName_Localised: Option<String>,
+  NumBodies: f64,
 }
 
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct BioDataStruct {
-  
+pub struct BioDataStruct {  
   Genus: String,
   Genus_Localised: Option<String>,
   Species: String,
@@ -3894,8 +3848,7 @@ pub struct BioDataStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct ResourcesRequiredStruct {
-  
+pub struct ResourcesRequiredStruct {  
   Name: String,
   Name_Localised: String,
   RequiredAmount: f64,
@@ -3906,8 +3859,27 @@ pub struct ResourcesRequiredStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct ItemsStruct {
-  
+pub struct MaterialsStruct {  
+  Name: String,
+  Name_Localised: Option<String>,
+  Count: f64,
+  Category: String,
+}
+
+#[derive(Clone, Debug, Transferable)]
+#[allow(non_snake_case)]
+#[allow(non_camel_case_types)]
+pub struct MicroResourcesStruct {  
+  Name: String,
+  Name_Localised: Option<String>,
+  Category: String,
+  Count: f64,
+}
+
+#[derive(Clone, Debug, Transferable)]
+#[allow(non_snake_case)]
+#[allow(non_camel_case_types)]
+pub struct ItemsStruct {  
   id: f64,
   Name: String,
   Name_Localised: Option<String>,
@@ -3928,65 +3900,49 @@ pub struct ItemsStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct ComponentsStruct {
-  
-}
-
-#[derive(Clone, Debug, Transferable)]
-#[allow(non_snake_case)]
-#[allow(non_camel_case_types)]
-pub struct ConsumablesStruct {
-  
-}
-
-#[derive(Clone, Debug, Transferable)]
-#[allow(non_snake_case)]
-#[allow(non_camel_case_types)]
-pub struct DataStruct {
-  
-}
-
-#[derive(Clone, Debug, Transferable)]
-#[allow(non_snake_case)]
-#[allow(non_camel_case_types)]
-pub struct MaterialsStruct {
-  
+pub struct ComponentsStruct {  
   Name: String,
   Name_Localised: Option<String>,
+  OwnerID: f64,
   Count: f64,
-  Category: String,
+  MissionID: Option<f64>,
 }
 
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct WeaponModsStruct {
-  
-}
-
-#[derive(Clone, Debug, Transferable)]
-#[allow(non_snake_case)]
-#[allow(non_camel_case_types)]
-pub struct MicroResourcesStruct {
-  
+pub struct ConsumablesStruct {  
   Name: String,
   Name_Localised: Option<String>,
-  Category: String,
+  OwnerID: f64,
   Count: f64,
 }
 
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct KillersStruct {
-  
+pub struct DataStruct {  
+  Name: String,
+  Name_Localised: Option<String>,
+  OwnerID: f64,
+  Count: f64,
+  MissionID: Option<f64>,
 }
 
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct ModulesStruct {
-  
+pub struct KillersStruct {  
+  KillerName: Option<String>,
+  KillerShip: Option<String>,
+  KillerRank: Option<String>,
+  KillerName_Localised: Option<String>,
+}
+
+#[derive(Clone, Debug, Transferable)]
+#[allow(non_snake_case)]
+#[allow(non_camel_case_types)]
+pub struct ModulesStruct {  
   Slot: String,
   Item: String,
   On: bool,
@@ -4001,8 +3957,7 @@ pub struct ModulesStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct PriceListStruct {
-  
+pub struct PriceListStruct {  
   id: f64,
   ShipType: String,
   ShipPrice: f64,
@@ -4012,8 +3967,7 @@ pub struct PriceListStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct CrewStruct {
-  
+pub struct CrewStruct {  
   NpcCrew_TotalWages: Option<f64>,
   NpcCrew_Hired: Option<f64>,
   NpcCrew_Fired: Option<f64>,
@@ -4023,15 +3977,7 @@ pub struct CrewStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct TraitsStruct {
-  
-}
-
-#[derive(Clone, Debug, Transferable)]
-#[allow(non_snake_case)]
-#[allow(non_camel_case_types)]
-pub struct TransfersStruct {
-  
+pub struct TransfersStruct {  
   Type: String,
   Type_Localised: Option<String>,
   Count: f64,
@@ -4042,8 +3988,7 @@ pub struct TransfersStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct RewardsStruct {
-  
+pub struct RewardsStruct {  
   Faction: String,
   Reward: f64,
 }
@@ -4051,22 +3996,7 @@ pub struct RewardsStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct SuitModsStruct {
-  
-}
-
-#[derive(Clone, Debug, Transferable)]
-#[allow(non_snake_case)]
-#[allow(non_camel_case_types)]
-pub struct PermitsAwardedStruct {
-  
-}
-
-#[derive(Clone, Debug, Transferable)]
-#[allow(non_snake_case)]
-#[allow(non_camel_case_types)]
-pub struct CommodityRewardStruct {
-  
+pub struct CommodityRewardStruct {  
   Name: String,
   Name_Localised: Option<String>,
   Count: f64,
@@ -4075,8 +4005,7 @@ pub struct CommodityRewardStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct MaterialsRewardStruct {
-  
+pub struct MaterialsRewardStruct {  
   Name: String,
   Name_Localised: Option<String>,
   Category: String,
@@ -4087,8 +4016,7 @@ pub struct MaterialsRewardStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct FactionEffectsStruct {
-  
+pub struct FactionEffectsStruct {  
   Faction: String,
   Effects: Vec<EffectsStruct>,
   Influence: Vec<InfluenceStruct>,
@@ -4099,8 +4027,7 @@ pub struct FactionEffectsStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct CurrentGoalsStruct {
-  
+pub struct CurrentGoalsStruct {  
   CGID: f64,
   Title: String,
   SystemName: String,
@@ -4121,8 +4048,7 @@ pub struct CurrentGoalsStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct InventoryStruct {
-  
+pub struct InventoryStruct {  
   Name: String,
   Name_Localised: Option<String>,
   Count: f64,
@@ -4133,8 +4059,7 @@ pub struct InventoryStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct RawStruct {
-  
+pub struct RawStruct {  
   Name: String,
   Name_Localised: Option<String>,
   Count: f64,
@@ -4143,8 +4068,7 @@ pub struct RawStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct ManufacturedStruct {
-  
+pub struct ManufacturedStruct {  
   Name: String,
   Name_Localised: Option<String>,
   Count: f64,
@@ -4153,8 +4077,7 @@ pub struct ManufacturedStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct EncodedStruct {
-  
+pub struct EncodedStruct {  
   Name: String,
   Name_Localised: Option<String>,
   Count: f64,
@@ -4163,8 +4086,7 @@ pub struct EncodedStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct SpaceUsageStruct {
-  
+pub struct SpaceUsageStruct {  
   TotalCapacity: f64,
   Crew: f64,
   Cargo: f64,
@@ -4177,8 +4099,7 @@ pub struct SpaceUsageStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct FinanceStruct {
-  
+pub struct FinanceStruct {  
   CarrierBalance: f64,
   ReserveBalance: f64,
   AvailableBalance: f64,
@@ -4195,8 +4116,7 @@ pub struct FinanceStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct ShipPacksStruct {
-  
+pub struct ShipPacksStruct {  
   PackTheme: String,
   PackTier: f64,
 }
@@ -4204,8 +4124,7 @@ pub struct ShipPacksStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct ModulePacksStruct {
-  
+pub struct ModulePacksStruct {  
   PackTheme: String,
   PackTier: f64,
 }
@@ -4213,8 +4132,7 @@ pub struct ModulePacksStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct ResourcesStruct {
-  
+pub struct ResourcesStruct {  
   Name: String,
   Name_Localised: Option<String>,
   Count: f64,
@@ -4223,8 +4141,7 @@ pub struct ResourcesStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct PaidStruct {
-  
+pub struct PaidStruct {  
   Material: String,
   Material_Localised: Option<String>,
   Category: String,
@@ -4234,8 +4151,7 @@ pub struct PaidStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct ReceivedStruct {
-  
+pub struct ReceivedStruct {  
   Material: String,
   Material_Localised: Option<String>,
   Category: String,
@@ -4245,8 +4161,7 @@ pub struct ReceivedStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct ParentsStruct {
-  
+pub struct ParentsStruct {  
   Star: Option<f64>,
   Null: Option<f64>,
   Ring: Option<f64>,
@@ -4256,8 +4171,7 @@ pub struct ParentsStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct AtmosphereCompositionStruct {
-  
+pub struct AtmosphereCompositionStruct {  
   Name: String,
   Percent: f64,
 }
@@ -4265,8 +4179,7 @@ pub struct AtmosphereCompositionStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct CompositionStruct {
-  
+pub struct CompositionStruct {  
   Ice: f64,
   Rock: f64,
   Metal: f64,
@@ -4275,8 +4188,7 @@ pub struct CompositionStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct RingsStruct {
-  
+pub struct RingsStruct {  
   Name: String,
   RingClass: String,
   MassMT: f64,
@@ -4287,8 +4199,7 @@ pub struct RingsStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct ActiveStruct {
-  
+pub struct ActiveStruct {  
   MissionID: f64,
   Name: String,
   Name_Localised: Option<String>,
@@ -4299,8 +4210,7 @@ pub struct ActiveStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct FailedStruct {
-  
+pub struct FailedStruct {  
   MissionID: f64,
   Name: String,
   Name_Localised: Option<String>,
@@ -4311,8 +4221,7 @@ pub struct FailedStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct CompleteStruct {
-  
+pub struct CompleteStruct {  
   MissionID: f64,
   Name: String,
   Name_Localised: Option<String>,
@@ -4323,15 +4232,7 @@ pub struct CompleteStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct PipsStruct {
-  
-}
-
-#[derive(Clone, Debug, Transferable)]
-#[allow(non_snake_case)]
-#[allow(non_camel_case_types)]
-pub struct FuelStruct {
-  
+pub struct FuelStruct {  
   FuelMain: f64,
   FuelReservoir: f64,
 }
@@ -4339,8 +4240,7 @@ pub struct FuelStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct DestinationStruct {
-  
+pub struct DestinationStruct {  
   System: f64,
   Body: f64,
   Name: String,
@@ -4350,8 +4250,7 @@ pub struct DestinationStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct ManifestStruct {
-  
+pub struct ManifestStruct {  
   MissionID: f64,
   Type: String,
   VIP: bool,
@@ -4362,8 +4261,7 @@ pub struct ManifestStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct IngredientsStruct {
-  
+pub struct IngredientsStruct {  
   Name: String,
   Name_Localised: Option<String>,
   Count: f64,
@@ -4372,8 +4270,7 @@ pub struct IngredientsStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct ModifiersStruct {
-  
+pub struct ModifiersStruct {  
   Label: String,
   Value: f64,
   OriginalValue: f64,
@@ -4383,15 +4280,7 @@ pub struct ModifiersStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct SystemsStruct {
-  
-}
-
-#[derive(Clone, Debug, Transferable)]
-#[allow(non_snake_case)]
-#[allow(non_camel_case_types)]
-pub struct EngineersStruct {
-  
+pub struct EngineersStruct {  
   Engineer: String,
   EngineerID: f64,
   Progress: String,
@@ -4402,8 +4291,7 @@ pub struct EngineersStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct ShipsHereStruct {
-  
+pub struct ShipsHereStruct {  
   ShipID: f64,
   ShipType: String,
   Value: f64,
@@ -4415,8 +4303,7 @@ pub struct ShipsHereStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct ShipsRemoteStruct {
-  
+pub struct ShipsRemoteStruct {  
   ShipID: f64,
   ShipType: String,
   Name: Option<String>,
@@ -4433,8 +4320,7 @@ pub struct ShipsRemoteStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct Bank_AccountStruct {
-  
+pub struct Bank_AccountStruct {  
   Current_Wealth: f64,
   Spent_On_Ships: f64,
   Spent_On_Outfitting: f64,
@@ -4456,8 +4342,7 @@ pub struct Bank_AccountStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct CombatStruct {
-  
+pub struct CombatStruct {  
   Bounties_Claimed: f64,
   Bounty_Hunting_Profit: f64,
   Combat_Bonds: f64,
@@ -4490,8 +4375,7 @@ pub struct CombatStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct CrimeStruct {
-  
+pub struct CrimeStruct {  
   Notoriety: Option<f64>,
   Fines: f64,
   Total_Fines: f64,
@@ -4520,8 +4404,7 @@ pub struct CrimeStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct SmugglingStruct {
-  
+pub struct SmugglingStruct {  
   Black_Markets_Traded_With: f64,
   Black_Markets_Profits: f64,
   Resources_Smuggled: f64,
@@ -4532,8 +4415,7 @@ pub struct SmugglingStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct TradingStruct {
-  
+pub struct TradingStruct {  
   Markets_Traded_With: f64,
   Market_Profits: f64,
   Resources_Traded: f64,
@@ -4547,8 +4429,7 @@ pub struct TradingStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct MiningStruct {
-  
+pub struct MiningStruct {  
   Mining_Profits: f64,
   Quantity_Mined: f64,
   Materials_Collected: Option<f64>,
@@ -4557,8 +4438,7 @@ pub struct MiningStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct ExplorationStruct {
-  
+pub struct ExplorationStruct {  
   Systems_Visited: f64,
   Exploration_Profits: f64,
   Planets_Scanned_To_Level_2: f64,
@@ -4583,8 +4463,7 @@ pub struct ExplorationStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct PassengersStruct {
-  
+pub struct PassengersStruct {  
   Passengers_Missions_Accepted: Option<f64>,
   Passengers_Missions_Disgruntled: Option<f64>,
   Passengers_Missions_Bulk: f64,
@@ -4596,8 +4475,7 @@ pub struct PassengersStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct Search_And_RescueStruct {
-  
+pub struct Search_And_RescueStruct {  
   SearchRescue_Traded: f64,
   SearchRescue_Profit: f64,
   SearchRescue_Count: f64,
@@ -4614,8 +4492,7 @@ pub struct Search_And_RescueStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct CraftingStruct {
-  
+pub struct CraftingStruct {  
   Count_Of_Used_Engineers: f64,
   Recipes_Generated: f64,
   Recipes_Generated_Rank_1: f64,
@@ -4644,8 +4521,7 @@ pub struct CraftingStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct MulticrewStruct {
-  
+pub struct MulticrewStruct {  
   Multicrew_Time_Total: f64,
   Multicrew_Gunner_Time_Total: f64,
   Multicrew_Fighter_Time_Total: f64,
@@ -4656,8 +4532,7 @@ pub struct MulticrewStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct Material_Trader_StatsStruct {
-  
+pub struct Material_Trader_StatsStruct {  
   Trades_Completed: f64,
   Materials_Traded: f64,
   Encoded_Materials_Traded: Option<f64>,
@@ -4674,8 +4549,7 @@ pub struct Material_Trader_StatsStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct FLEETCARRIERStruct {
-  
+pub struct FLEETCARRIERStruct {  
   FLEETCARRIER_EXPORT_TOTAL: f64,
   FLEETCARRIER_IMPORT_TOTAL: f64,
   FLEETCARRIER_TRADEPROFIT_TOTAL: f64,
@@ -4699,8 +4573,7 @@ pub struct FLEETCARRIERStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct ExobiologyStruct {
-  
+pub struct ExobiologyStruct {  
   Organic_Genus_Encountered: f64,
   Organic_Species_Encountered: f64,
   Organic_Variant_Encountered: f64,
@@ -4717,8 +4590,7 @@ pub struct ExobiologyStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct TG_ENCOUNTERSStruct {
-  
+pub struct TG_ENCOUNTERSStruct {  
   TG_ENCOUNTER_IMPRINT: Option<f64>,
   TG_ENCOUNTER_WAKES: Option<f64>,
   TG_ENCOUNTER_KILLED: Option<f64>,
@@ -4732,8 +4604,7 @@ pub struct TG_ENCOUNTERSStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct CQCStruct {
-  
+pub struct CQCStruct {  
   CQC_Credits_Earned: Option<f64>,
   CQC_Time_Played: f64,
   CQC_KD: f64,
@@ -4744,8 +4615,7 @@ pub struct CQCStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct SquadronStruct {
-  
+pub struct SquadronStruct {  
   Squadron_Bank_Credits_Deposited: f64,
   Squadron_Bank_Credits_Withdrawn: f64,
   Squadron_Bank_Commodities_Deposited_Num: f64,
@@ -4775,8 +4645,7 @@ pub struct SquadronStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct ContributionsStruct {
-  
+pub struct ContributionsStruct {  
   Name: String,
   Name_Localised: String,
   Amount: f64,
@@ -4785,15 +4654,7 @@ pub struct ContributionsStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct OthersStruct {
-  
-}
-
-#[derive(Clone, Debug, Transferable)]
-#[allow(non_snake_case)]
-#[allow(non_camel_case_types)]
-pub struct OfferedStruct {
-  
+pub struct OfferedStruct {  
   Name: String,
   Name_Localised: Option<String>,
   Category: String,
@@ -4803,8 +4664,7 @@ pub struct OfferedStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct ItemsUnlockedStruct {
-  
+pub struct ItemsUnlockedStruct {  
   Name: String,
   Name_Localised: Option<String>,
 }
@@ -4812,8 +4672,7 @@ pub struct ItemsUnlockedStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct CommoditiesStruct {
-  
+pub struct CommoditiesStruct {  
   Name: String,
   Name_Localised: Option<String>,
   Count: f64,
@@ -4822,8 +4681,7 @@ pub struct CommoditiesStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct FuelCapacityStruct {
-  
+pub struct FuelCapacityStruct {  
   Main: f64,
   Reserve: f64,
 }
@@ -4831,8 +4689,7 @@ pub struct FuelCapacityStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct PendingStatesStruct {
-  
+pub struct PendingStatesStruct {  
   State: String,
   Trend: f64,
 }
@@ -4840,16 +4697,14 @@ pub struct PendingStatesStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct ActiveStatesStruct {
-  
+pub struct ActiveStatesStruct {  
   State: String,
 }
 
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct RecoveringStatesStruct {
-  
+pub struct RecoveringStatesStruct {  
   State: String,
   Trend: f64,
 }
@@ -4857,8 +4712,7 @@ pub struct RecoveringStatesStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct Faction1Struct {
-  
+pub struct Faction1Struct {  
   Name: String,
   Stake: String,
   Stake_Localised: Option<String>,
@@ -4868,8 +4722,7 @@ pub struct Faction1Struct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct Faction2Struct {
-  
+pub struct Faction2Struct {  
   Name: String,
   Stake: String,
   WonDays: f64,
@@ -4878,8 +4731,7 @@ pub struct Faction2Struct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct EngineeringStruct {
-  
+pub struct EngineeringStruct {  
   EngineerID: f64,
   BlueprintID: f64,
   BlueprintName: String,
@@ -4894,8 +4746,7 @@ pub struct EngineeringStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct EffectsStruct {
-  
+pub struct EffectsStruct {  
   Effect: String,
   Effect_Localised: Option<String>,
   Trend: String,
@@ -4904,8 +4755,7 @@ pub struct EffectsStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct InfluenceStruct {
-  
+pub struct InfluenceStruct {  
   SystemAddress: f64,
   Trend: String,
   Influence: String,
@@ -4914,8 +4764,7 @@ pub struct InfluenceStruct {
 #[derive(Clone, Debug, Transferable)]
 #[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-pub struct TopTierStruct {
-  
+pub struct TopTierStruct {  
   Name: String,
   Bonus: String,
 }

@@ -2,7 +2,7 @@ import * as path from 'path';
 import { app, BrowserWindow, Menu, MenuItem } from 'electron';
 
 import '@/lib/electron/main';
-import core from "@core";
+import core, { setEventListener } from "@core";
 import { bridge } from '@/lib/electron/ModuleBridge';
 
 bridge(core, "core");

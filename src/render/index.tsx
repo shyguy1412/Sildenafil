@@ -19,12 +19,17 @@ export const EventSystem = {
     }
 };
 
-core.setEventListener((event, data) => EventSystem.dispatchEvent(new CustomEvent(event, { detail: data })));
+EventSystem.addEventListener("CommunityGoal", ({ detail: data }) => console.log(data));
 
 function Index({ }: Props) {
+
     return <HelloWorld></HelloWorld>;
 };
-__module_bridge_init.then(() =>
-    render(<Index></Index>, document.body)
-);
+__module_bridge_init.then(() => {
+    core.setEventListener((event, ...args) => {
+        console.log(event, args);
+        // EventSystem.dispatchEvent(new CustomEvent(event, { detail: data }));
+    });
+    render(<Index></Index>, document.body);
+});
 

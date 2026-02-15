@@ -31,14 +31,14 @@
   "devDependencies": {
     "@neon-rs/cli": "^0.1.82",
     "concurrently": "^9.2.1",
-    "electron": "^38.2.2",
-    "electron-builder": "^26.0.12",
-    "esbuild": "^0.25.10",
-    "nodemon": "^3.1.10",
+    "electron": "^40.3.0",
+    "electron-builder": "^26.7.0",
+    "esbuild": "^0.27.3",
+    "nodemon": "^3.1.11",
     "normalize.css": "^8.0.1",
-    "preact": "^10.27.2",
+    "preact": "^10.28.3",
     "typescript": "^5.9.3",
     "typescript-plugin-css-modules": "^5.2.0",
-    "wait-on": "^9.0.1"
+    "wait-on": "^9.0.3"
   }
 }

@@ -2,10 +2,19 @@ import * as path from 'path';
 import { app, BrowserWindow, Menu, MenuItem } from 'electron';
 
 import '@/lib/electron/main';
-import core, { setEventListener } from "@core";
+import core from "@core";
 import { bridge } from '@/lib/electron/ModuleBridge';
+import { log } from 'console';
 
 bridge(core, "core");
+
+core.testFunction({
+    a: 0,
+    b: '',
+    c: {
+        d: false
+    }
+})
 
 //TEMP
 const i18n = {
@@ -73,6 +82,8 @@ function createWindow() {
 // Some APIs can only be used after this event occurs.
 
 app.whenReady().then(async () => {
+    console.log("GOO");
+    
     Menu.setApplicationMenu(createMenu());
     createWindow();
 });

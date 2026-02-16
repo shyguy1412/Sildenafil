@@ -23,26 +23,26 @@ const internalStructs: Map<string, any> = new Map();
 
 for (const struct in commonSchema.content.definitions) {
     const schema = commonSchema.content.definitions[struct];
-    internalStructs.set(struct + 'Common', schema);
+    internalStructs.set(struct, schema);
 }
 
 const changeEntrySchema = schemas.find(schema => schema.content.definitions)!.content.definitions.changeEntry;
 
-internalStructs.set("ChangeEntryCommon", changeEntrySchema);
+internalStructs.set("ChangeEntry", changeEntrySchema);
 
 type StructProperty = { ident: string, type: string; optional: boolean; };
 
 for (const schema of schemas) {
     const props: StructProperty[] = [];
 
+    const ident = schema.path.replace(/.*\/(.*?)\.json$/, '$1');
     const base = schema.content.extends;
 
     if (base && base.$ref.endsWith('_Event.json'))
-        props.push(...transformSchemaToProperties(baseEventSchema.content));
+        props.push(...transformSchemaToProperties(ident, baseEventSchema.content));
 
-    props.push(...transformSchemaToProperties(schema.content));
+    props.push(...transformSchemaToProperties(ident, schema.content));
 
-    const ident = schema.path.replace(/.*\/(.*?)\.json$/, '$1');
 
     eventStructs.push(`\
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
@@ -65,8 +65,8 @@ use serde::{Deserialize, Serialize};
 const generatedEvents = eventStructs.join('\n');
 const generatedStructs = internalStructs.entries().reduce((prev, [ident, schema]) => `${prev}
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct ${ident}Struct {\
-${transformSchemaToProperties(schema)
+pub struct ${ident} {\
+${transformSchemaToProperties(ident, schema)
         .map(structPropToString)
         .reduce((prev, cur) => `${prev}\n    ${cur}`, '')
     }
@@ -75,6 +75,7 @@ ${transformSchemaToProperties(schema)
 
 const fleetCarrierEnum = `
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+#[serde(untagged)]
 pub enum FLEETCARRIER_DISTANCE_TRAVELLEDEnum {
     Lexical(String),
     Numerical(f64),
@@ -96,9 +97,9 @@ impl Event {
         use Event::*;
         match self {
 ${schemas
-            .map(schema => schema.path.replace(/.*\/(.*?)\.json$/, "$1"))
-            .reduce((prev, cur) => `${prev}            ${cur}(_) => "${cur}".to_string(),\n`, '')
-            }\
+        .map(schema => schema.path.replace(/.*\/(.*?)\.json$/, "$1"))
+        .reduce((prev, cur) => `${prev}            ${cur}(_) => "${cur}".to_string(),\n`, '')
+    }\
         }
     }
 }
@@ -114,7 +115,7 @@ function structPropToString(prop: StructProperty) {
     return `pub ${prop.ident}: ${type},`;
 }
 
-function transformSchemaToProperties(schema: any): StructProperty[] {
+function transformSchemaToProperties(name: string, schema: any): StructProperty[] {
     const props: StructProperty[] = [];
     for (const property in schema.properties) {
         if (property == 'event') continue;
@@ -122,7 +123,7 @@ function transformSchemaToProperties(schema: any): StructProperty[] {
         props.push({
             ident: property,
             optional: true,
-            type: schemaPropertyToStructType(propertySchema)
+            type: schemaPropertyToStructType(propertySchema, name)
         });
     }
 
@@ -135,7 +136,7 @@ function transformSchemaToProperties(schema: any): StructProperty[] {
 }
 
 
-function schemaPropertyToStructType(prop: any, parent_title?: string): string {
+function schemaPropertyToStructType(prop: any, root_title: string, parent_title?: string): string {
 
     const title = prop.title ?? parent_title;
 
@@ -156,25 +157,21 @@ function schemaPropertyToStructType(prop: any, parent_title?: string): string {
             return 'bool';
 
         case 'object':
-            //The NavRouteClear event has items without properties since the array is always empty
-            //This overwrites the RouteStruct to be empty
-            //Only creating structs that actually have props prevents this
-            if ("properties" in prop)
-                internalStructs.set(title, prop);
-            return title + "Struct";
+            internalStructs.set((root_title ?? '') + title, prop);
+            return (root_title ?? '') + title;
 
         case 'array':
             // internalStructs.set(title, prop.items);
             //special case for BackpackChange event
             if (title == "Added" || title == "Removed") {
-                return `Vec<${schemaPropertyToStructType(prop.items, "ChangeEntry")}>`;
+                return `Vec<${schemaPropertyToStructType(prop.items, root_title, "ChangeEntry")}>`;
             }
-            return `Vec<${schemaPropertyToStructType(prop.items, title)}>`;
+            return `Vec<${schemaPropertyToStructType(prop.items, root_title, title)}>`;
 
         case undefined:
             //some types have a stray trailing s
             if ("$ref" in prop)
-                return title.replace(/s$/, '') + 'CommonStruct';
+                return title.replace(/s$/, '');
             else
                 return title + "Enum";
 

@@ -590,15 +590,15 @@ pub struct Docked {
     pub StarSystem: String,
     pub SystemAddress: f64,
     pub MarketID: f64,
-    pub StationFaction: StationFactionStruct,
+    pub StationFaction: DockedStationFaction,
     pub StationGovernment: String,
     pub StationGovernment_Localised: Option<String>,
     pub StationServices: Vec<String>,
     pub StationEconomy: Option<String>,
     pub StationEconomy_Localised: Option<String>,
-    pub StationEconomies: Option<Vec<StationEconomiesStruct>>,
+    pub StationEconomies: Option<Vec<DockedStationEconomies>>,
     pub DistFromStarLS: f64,
-    pub LandingPads: Option<LandingPadsStruct>,
+    pub LandingPads: Option<DockedLandingPads>,
     pub Wanted: Option<bool>,
     pub ActiveFine: Option<bool>,
     pub StationAllegiance: Option<String>,
@@ -624,7 +624,7 @@ pub struct DockingRequested {
     pub StationName: String,
     pub StationName_Localised: Option<String>,
     pub StationType: String,
-    pub LandingPads: Option<LandingPadsStruct>,
+    pub LandingPads: Option<DockingRequestedLandingPads>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct ApproachSettlement {
@@ -637,14 +637,14 @@ pub struct ApproachSettlement {
     pub Latitude: Option<f64>,
     pub Longitude: Option<f64>,
     pub Name_Localised: Option<String>,
-    pub StationFaction: Option<StationFactionStruct>,
+    pub StationFaction: Option<ApproachSettlementStationFaction>,
     pub StationGovernment: Option<String>,
     pub StationGovernment_Localised: Option<String>,
     pub StationAllegiance: Option<String>,
     pub StationServices: Option<Vec<String>>,
     pub StationEconomy: Option<String>,
     pub StationEconomy_Localised: Option<String>,
-    pub StationEconomies: Option<Vec<StationEconomiesStruct>>,
+    pub StationEconomies: Option<Vec<ApproachSettlementStationEconomies>>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct MaterialDiscovered {
@@ -696,8 +696,8 @@ pub struct SAASignalsFound {
     pub BodyName: String,
     pub SystemAddress: f64,
     pub BodyID: f64,
-    pub Signals: Vec<SignalsStruct>,
-    pub Genuses: Option<Vec<GenusesStruct>>,
+    pub Signals: Vec<SAASignalsFoundSignals>,
+    pub Genuses: Option<Vec<SAASignalsFoundGenuses>>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct BookDropship {
@@ -717,8 +717,8 @@ pub struct LaunchFighter {
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct BackpackChange {
     pub timestamp: String,
-    pub Added: Option<Vec<ChangeEntryCommonStruct>>,
-    pub Removed: Option<Vec<ChangeEntryCommonStruct>>,
+    pub Added: Option<Vec<ChangeEntry>>,
+    pub Removed: Option<Vec<ChangeEntry>>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct CrimeVictim {
@@ -753,29 +753,29 @@ pub struct Location {
     pub Body: String,
     pub BodyID: f64,
     pub BodyType: String,
-    pub Factions: Option<Vec<FactionsStruct>>,
-    pub SystemFaction: Option<SystemFactionStruct>,
+    pub Factions: Option<Vec<LocationFactions>>,
+    pub SystemFaction: Option<LocationSystemFaction>,
     pub Powers: Option<Vec<String>>,
     pub ControllingPower: Option<String>,
     pub PowerplayState: Option<String>,
     pub PowerplayStateControlProgress: Option<f64>,
     pub PowerplayStateReinforcement: Option<f64>,
     pub PowerplayStateUndermining: Option<f64>,
-    pub PowerplayConflictProgress: Option<Vec<PowerplayConflictProgressStruct>>,
-    pub Conflicts: Option<Vec<ConflictsStruct>>,
-    pub ThargoidWar: Option<ThargoidWarStruct>,
+    pub PowerplayConflictProgress: Option<Vec<LocationPowerplayConflictProgress>>,
+    pub Conflicts: Option<Vec<LocationConflicts>>,
+    pub ThargoidWar: Option<LocationThargoidWar>,
     pub OnFoot: Option<bool>,
     pub StationName: Option<String>,
     pub StationName_Localised: Option<String>,
     pub StationType: Option<String>,
     pub MarketID: Option<f64>,
-    pub StationFaction: Option<StationFactionStruct>,
+    pub StationFaction: Option<LocationStationFaction>,
     pub StationGovernment: Option<String>,
     pub StationGovernment_Localised: Option<String>,
     pub StationServices: Option<Vec<String>>,
     pub StationEconomy: Option<String>,
     pub StationEconomy_Localised: Option<String>,
-    pub StationEconomies: Option<Vec<StationEconomiesStruct>>,
+    pub StationEconomies: Option<Vec<LocationStationEconomies>>,
     pub Latitude: Option<f64>,
     pub Longitude: Option<f64>,
     pub InSRV: Option<bool>,
@@ -796,7 +796,7 @@ pub struct USSDrop {
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct NavRoute {
     pub timestamp: String,
-    pub Route: Option<Vec<RouteStruct>>,
+    pub Route: Option<Vec<NavRouteRoute>>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct MissionAccepted {
@@ -859,7 +859,7 @@ pub struct PowerplayCollect {
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct MultiSellExplorationData {
     pub timestamp: String,
-    pub Discovered: Vec<DiscoveredStruct>,
+    pub Discovered: Vec<MultiSellExplorationDataDiscovered>,
     pub BaseValue: f64,
     pub Bonus: f64,
     pub TotalEarnings: f64,
@@ -868,7 +868,7 @@ pub struct MultiSellExplorationData {
 pub struct SellOrganicData {
     pub timestamp: String,
     pub MarketID: f64,
-    pub BioData: Vec<BioDataStruct>,
+    pub BioData: Vec<SellOrganicDataBioData>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct ColonisationConstructionDepot {
@@ -877,7 +877,7 @@ pub struct ColonisationConstructionDepot {
     pub ConstructionProgress: f64,
     pub ConstructionComplete: bool,
     pub ConstructionFailed: bool,
-    pub ResourcesRequired: Vec<ResourcesRequiredStruct>,
+    pub ResourcesRequired: Vec<ColonisationConstructionDepotResourcesRequired>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct ModuleSellRemote {
@@ -973,10 +973,10 @@ pub struct Interdiction {
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct ShipLocker {
     pub timestamp: String,
-    pub Items: Option<Vec<ItemCommonStruct>>,
-    pub Components: Option<Vec<ComponentCommonStruct>>,
-    pub Consumables: Option<Vec<ConsumableCommonStruct>>,
-    pub Data: Option<Vec<DataCommonStruct>>,
+    pub Items: Option<Vec<Item>>,
+    pub Components: Option<Vec<Component>>,
+    pub Consumables: Option<Vec<Consumable>>,
+    pub Data: Option<Vec<Data>>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct HeatWarning {
@@ -1006,7 +1006,7 @@ pub struct CarrierShipPack {
 pub struct Synthesis {
     pub timestamp: String,
     pub Name: String,
-    pub Materials: Vec<MaterialsStruct>,
+    pub Materials: Vec<SynthesisMaterials>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct CarrierFinance {
@@ -1028,7 +1028,7 @@ pub struct CarrierFinance {
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct ProspectedAsteroid {
     pub timestamp: String,
-    pub Materials: Vec<MaterialsStruct>,
+    pub Materials: Vec<ProspectedAsteroidMaterials>,
     pub Content: String,
     pub Content_Localised: Option<String>,
     pub Remaining: f64,
@@ -1107,7 +1107,7 @@ pub struct BuyTradeData {
 pub struct DeliverPowerMicroResources {
     pub timestamp: String,
     pub TotalCount: f64,
-    pub MicroResources: Vec<MicroResourcesStruct>,
+    pub MicroResources: Vec<DeliverPowerMicroResourcesMicroResources>,
     pub MarketID: f64,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
@@ -1116,7 +1116,7 @@ pub struct StoredModules {
     pub MarketID: f64,
     pub StationName: String,
     pub StarSystem: String,
-    pub Items: Vec<ItemsStruct>,
+    pub Items: Vec<StoredModulesItems>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct SRVDestroyed {
@@ -1131,7 +1131,7 @@ pub struct FSSBodySignals {
     pub BodyName: String,
     pub BodyID: f64,
     pub SystemAddress: f64,
-    pub Signals: Vec<SignalsStruct>,
+    pub Signals: Vec<FSSBodySignalsSignals>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct MissionRedirected {
@@ -1174,10 +1174,10 @@ pub struct ShipyardTransfer {
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct ShipLockerMaterials {
     pub timestamp: String,
-    pub Items: Vec<ItemsStruct>,
-    pub Components: Vec<ComponentsStruct>,
-    pub Consumables: Vec<ConsumablesStruct>,
-    pub Data: Vec<DataStruct>,
+    pub Items: Vec<ShipLockerMaterialsItems>,
+    pub Components: Vec<ShipLockerMaterialsComponents>,
+    pub Consumables: Vec<ShipLockerMaterialsConsumables>,
+    pub Data: Vec<ShipLockerMaterialsData>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct NpcCrewRank {
@@ -1209,7 +1209,7 @@ pub struct Died {
     pub KillerShip: Option<String>,
     pub KillerRank: Option<String>,
     pub KillerName_Localised: Option<String>,
-    pub Killers: Option<Vec<KillersStruct>>,
+    pub Killers: Option<Vec<DiedKillers>>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct BuyWeapon {
@@ -1236,7 +1236,7 @@ pub struct PowerplayJoin {
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct ModuleInfo {
     pub timestamp: String,
-    pub Modules: Option<Vec<ModulesStruct>>,
+    pub Modules: Option<Vec<ModuleInfoModules>>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct CrewHire {
@@ -1257,7 +1257,7 @@ pub struct BuyMicroResources {
     pub Price: f64,
     pub MarketID: f64,
     pub TotalCount: Option<f64>,
-    pub MicroResources: Option<Vec<MicroResourcesStruct>>,
+    pub MicroResources: Option<Vec<BuyMicroResourcesMicroResources>>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct ShipyardSell {
@@ -1350,7 +1350,7 @@ pub struct Shipyard {
     pub StarSystem: String,
     pub Horizons: Option<bool>,
     pub AllowCobraMkIV: Option<bool>,
-    pub PriceList: Option<Vec<PriceListStruct>>,
+    pub PriceList: Option<Vec<ShipyardPriceList>>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct SquadronApplicationApproved {
@@ -1379,7 +1379,7 @@ pub struct Embark {
     pub StationName: Option<String>,
     pub StationType: Option<String>,
     pub MarketID: Option<f64>,
-    pub Crew: Option<Vec<CrewStruct>>,
+    pub Crew: Option<Vec<EmbarkCrew>>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct ShipRedeemed {
@@ -1423,7 +1423,7 @@ pub struct RedeemVoucher {
     pub Type: String,
     pub Faction: Option<String>,
     pub Amount: f64,
-    pub Factions: Option<Vec<FactionsStruct>>,
+    pub Factions: Option<Vec<RedeemVoucherFactions>>,
     pub BrokerPercentage: Option<f64>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
@@ -1449,7 +1449,7 @@ pub struct CarrierCancelDecommission {
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct TransferMicroResources {
     pub timestamp: String,
-    pub Transfers: Vec<TransfersStruct>,
+    pub Transfers: Vec<TransferMicroResourcesTransfers>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct ModuleBuy {
@@ -1494,7 +1494,7 @@ pub struct MassModuleStore {
     pub MarketID: f64,
     pub Ship: String,
     pub ShipID: f64,
-    pub Items: Vec<ItemsStruct>,
+    pub Items: Vec<MassModuleStoreItems>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct Reputation {
@@ -1537,10 +1537,10 @@ pub struct Scanned {
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct Backpack {
     pub timestamp: String,
-    pub Items: Option<Vec<ItemCommonStruct>>,
-    pub Components: Option<Vec<ComponentCommonStruct>>,
-    pub Consumables: Option<Vec<ConsumableCommonStruct>>,
-    pub Data: Option<Vec<DataCommonStruct>>,
+    pub Items: Option<Vec<Item>>,
+    pub Components: Option<Vec<Component>>,
+    pub Consumables: Option<Vec<Consumable>>,
+    pub Data: Option<Vec<Data>>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct HoloscreenHacked {
@@ -1565,7 +1565,7 @@ pub struct ScanOrganic {
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct Bounty {
     pub timestamp: String,
-    pub Rewards: Option<Vec<RewardsStruct>>,
+    pub Rewards: Option<Vec<BountyRewards>>,
     pub PilotName: Option<String>,
     pub PilotName_Localised: Option<String>,
     pub Target: String,
@@ -1665,7 +1665,7 @@ pub struct Outfitting {
     pub StationName: String,
     pub StarSystem: String,
     pub Horizons: Option<bool>,
-    pub Items: Option<Vec<ItemsStruct>>,
+    pub Items: Option<Vec<OutfittingItems>>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct RefuelPartial {
@@ -1696,7 +1696,7 @@ pub struct CreateSuitLoadout {
     pub SuitMods: Vec<String>,
     pub LoadoutID: f64,
     pub LoadoutName: String,
-    pub Modules: Vec<ModulesStruct>,
+    pub Modules: Vec<CreateSuitLoadoutModules>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct BuyDrones {
@@ -1740,7 +1740,7 @@ pub struct SuitLoadout {
     pub SuitMods: Vec<String>,
     pub LoadoutID: f64,
     pub LoadoutName: String,
-    pub Modules: Vec<ModulesStruct>,
+    pub Modules: Vec<SuitLoadoutModules>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct Friends {
@@ -1773,17 +1773,17 @@ pub struct FSDJump {
     pub JumpDist: f64,
     pub FuelUsed: f64,
     pub FuelLevel: f64,
-    pub Factions: Option<Vec<FactionsStruct>>,
-    pub SystemFaction: Option<SystemFactionStruct>,
+    pub Factions: Option<Vec<FSDJumpFactions>>,
+    pub SystemFaction: Option<FSDJumpSystemFaction>,
     pub Powers: Option<Vec<String>>,
     pub ControllingPower: Option<String>,
     pub PowerplayState: Option<String>,
     pub PowerplayStateControlProgress: Option<f64>,
     pub PowerplayStateReinforcement: Option<f64>,
     pub PowerplayStateUndermining: Option<f64>,
-    pub PowerplayConflictProgress: Option<Vec<PowerplayConflictProgressStruct>>,
-    pub Conflicts: Option<Vec<ConflictsStruct>>,
-    pub ThargoidWar: Option<ThargoidWarStruct>,
+    pub PowerplayConflictProgress: Option<Vec<FSDJumpPowerplayConflictProgress>>,
+    pub Conflicts: Option<Vec<FSDJumpConflicts>>,
+    pub ThargoidWar: Option<FSDJumpThargoidWar>,
     pub BoostUsed: Option<f64>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
@@ -1798,9 +1798,9 @@ pub struct MissionCompleted {
     pub Count: Option<f64>,
     pub Reward: Option<f64>,
     pub PermitsAwarded: Option<Vec<String>>,
-    pub CommodityReward: Option<Vec<CommodityRewardStruct>>,
-    pub MaterialsReward: Option<Vec<MaterialsRewardStruct>>,
-    pub FactionEffects: Option<Vec<FactionEffectsStruct>>,
+    pub CommodityReward: Option<Vec<MissionCompletedCommodityReward>>,
+    pub MaterialsReward: Option<Vec<MissionCompletedMaterialsReward>>,
+    pub FactionEffects: Option<Vec<MissionCompletedFactionEffects>>,
     pub Donation: Option<String>,
     pub Donated: Option<f64>,
     pub TargetFaction: Option<String>,
@@ -1818,14 +1818,14 @@ pub struct MissionCompleted {
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct CommunityGoal {
     pub timestamp: String,
-    pub CurrentGoals: Vec<CurrentGoalsStruct>,
+    pub CurrentGoals: Vec<CommunityGoalCurrentGoals>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct Cargo {
     pub timestamp: String,
     pub Vessel: String,
     pub Count: f64,
-    pub Inventory: Option<Vec<InventoryStruct>>,
+    pub Inventory: Option<Vec<CargoInventory>>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct JoinACrew {
@@ -1896,9 +1896,9 @@ pub struct MarketSell {
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct Materials {
     pub timestamp: String,
-    pub Raw: Vec<RawStruct>,
-    pub Manufactured: Vec<ManufacturedStruct>,
-    pub Encoded: Vec<EncodedStruct>,
+    pub Raw: Vec<MaterialsRaw>,
+    pub Manufactured: Vec<MaterialsManufactured>,
+    pub Encoded: Vec<MaterialsEncoded>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct SquadronApplicationRejected {
@@ -1919,11 +1919,11 @@ pub struct CarrierStats {
     pub JumpRangeCurr: f64,
     pub JumpRangeMax: f64,
     pub PendingDecommission: bool,
-    pub SpaceUsage: SpaceUsageStruct,
-    pub Finance: FinanceStruct,
-    pub Crew: Vec<CrewStruct>,
-    pub ShipPacks: Vec<ShipPacksStruct>,
-    pub ModulePacks: Vec<ModulePacksStruct>,
+    pub SpaceUsage: CarrierStatsSpaceUsage,
+    pub Finance: CarrierStatsFinance,
+    pub Crew: Vec<CarrierStatsCrew>,
+    pub ShipPacks: Vec<CarrierStatsShipPacks>,
+    pub ModulePacks: Vec<CarrierStatsModulePacks>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct MissionAbandoned {
@@ -1941,7 +1941,7 @@ pub struct UpgradeSuit {
     pub SuitID: f64,
     pub Class: f64,
     pub Cost: f64,
-    pub Resources: Option<Vec<ResourcesStruct>>,
+    pub Resources: Option<Vec<UpgradeSuitResources>>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct LeaveBody {
@@ -1956,8 +1956,8 @@ pub struct MaterialTrade {
     pub timestamp: String,
     pub MarketID: f64,
     pub TraderType: String,
-    pub Paid: PaidStruct,
-    pub Received: ReceivedStruct,
+    pub Paid: MaterialTradePaid,
+    pub Received: MaterialTradeReceived,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct JetConeBoost {
@@ -1984,7 +1984,7 @@ pub struct Scan {
     pub ScanType: String,
     pub BodyName: String,
     pub BodyID: f64,
-    pub Parents: Option<Vec<ParentsStruct>>,
+    pub Parents: Option<Vec<ScanParents>>,
     pub StarSystem: String,
     pub SystemAddress: f64,
     pub DistanceFromArrivalLS: f64,
@@ -1993,7 +1993,7 @@ pub struct Scan {
     pub PlanetClass: Option<String>,
     pub Atmosphere: Option<String>,
     pub AtmosphereType: Option<String>,
-    pub AtmosphereComposition: Option<Vec<AtmosphereCompositionStruct>>,
+    pub AtmosphereComposition: Option<Vec<ScanAtmosphereComposition>>,
     pub Volcanism: Option<String>,
     pub MassEM: Option<f64>,
     pub Radius: Option<f64>,
@@ -2001,7 +2001,7 @@ pub struct Scan {
     pub SurfaceTemperature: Option<f64>,
     pub SurfacePressure: Option<f64>,
     pub Landable: Option<bool>,
-    pub Composition: Option<CompositionStruct>,
+    pub Composition: Option<ScanComposition>,
     pub SemiMajorAxis: Option<f64>,
     pub Eccentricity: Option<f64>,
     pub OrbitalInclination: Option<f64>,
@@ -2020,8 +2020,8 @@ pub struct Scan {
     pub AbsoluteMagnitude: Option<f64>,
     pub Age_MY: Option<f64>,
     pub Luminosity: Option<String>,
-    pub Rings: Option<Vec<RingsStruct>>,
-    pub Materials: Option<Vec<MaterialsStruct>>,
+    pub Rings: Option<Vec<ScanRings>>,
+    pub Materials: Option<Vec<ScanMaterials>>,
     pub ReserveLevel: Option<String>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
@@ -2030,7 +2030,7 @@ pub struct FCMaterials {
     pub MarketID: f64,
     pub CarrierName: String,
     pub CarrierID: String,
-    pub Items: Option<Vec<ItemsStruct>>,
+    pub Items: Option<Vec<FCMaterialsItems>>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct SystemsShutdown {
@@ -2077,7 +2077,7 @@ pub struct Music {
 pub struct SellMicroResources {
     pub timestamp: String,
     pub TotalCount: f64,
-    pub MicroResources: Vec<MicroResourcesStruct>,
+    pub MicroResources: Vec<SellMicroResourcesMicroResources>,
     pub Price: f64,
     pub MarketID: f64,
 }
@@ -2091,15 +2091,15 @@ pub struct DisbandedSquadron {
 pub struct RequestPowerMicroResources {
     pub timestamp: String,
     pub TotalCount: f64,
-    pub MicroResources: Vec<MicroResourcesStruct>,
+    pub MicroResources: Vec<RequestPowerMicroResourcesMicroResources>,
     pub MarketID: f64,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct Missions {
     pub timestamp: String,
-    pub Active: Vec<ActiveStruct>,
-    pub Failed: Vec<FailedStruct>,
-    pub Complete: Vec<CompleteStruct>,
+    pub Active: Vec<MissionsActive>,
+    pub Failed: Vec<MissionsFailed>,
+    pub Complete: Vec<MissionsComplete>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct ReservoirReplenished {
@@ -2121,7 +2121,7 @@ pub struct UpgradeWeapon {
     pub Class: f64,
     pub SuitModuleID: f64,
     pub Cost: f64,
-    pub Resources: Option<Vec<ResourcesStruct>>,
+    pub Resources: Option<Vec<UpgradeWeaponResources>>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct Touchdown {
@@ -2177,7 +2177,7 @@ pub struct Status {
     pub Flags: f64,
     pub Pips: Option<Vec<f64>>,
     pub FireGroup: Option<f64>,
-    pub Fuel: Option<FuelStruct>,
+    pub Fuel: Option<StatusFuel>,
     pub GuiFocus: Option<f64>,
     pub Latitude: Option<f64>,
     pub Longitude: Option<f64>,
@@ -2192,7 +2192,7 @@ pub struct Status {
     pub Temperature: Option<f64>,
     pub SelectedWeapon: Option<String>,
     pub BodyName: Option<String>,
-    pub Destination: Option<DestinationStruct>,
+    pub Destination: Option<StatusDestination>,
     pub PlanetRadius: Option<f64>,
     pub SelectedWeapon_Localised: Option<String>,
     pub Gravity: Option<f64>,
@@ -2251,7 +2251,7 @@ pub struct ShipyardBuy {
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct NavRouteClear {
     pub timestamp: String,
-    pub Route: Option<Vec<RouteStruct>>,
+    pub Route: Option<Vec<NavRouteClearRoute>>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct CapShipBond {
@@ -2279,7 +2279,7 @@ pub struct ShipyardRedeem {
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct Passengers {
     pub timestamp: String,
-    pub Manifest: Vec<ManifestStruct>,
+    pub Manifest: Vec<PassengersManifest>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct FSSSignalDiscovered {
@@ -2311,14 +2311,14 @@ pub struct EngineerCraft {
     pub timestamp: String,
     pub Slot: String,
     pub Module: String,
-    pub Ingredients: Vec<IngredientsStruct>,
+    pub Ingredients: Vec<EngineerCraftIngredients>,
     pub Engineer: Option<String>,
     pub EngineerID: f64,
     pub BlueprintID: f64,
     pub BlueprintName: String,
     pub Level: f64,
     pub Quality: f64,
-    pub Modifiers: Vec<ModifiersStruct>,
+    pub Modifiers: Vec<EngineerCraftModifiers>,
     pub ApplyExperimentalEffect: Option<String>,
     pub ExperimentalEffect: Option<String>,
     pub ExperimentalEffect_Localised: Option<String>,
@@ -2369,7 +2369,7 @@ pub struct SwitchSuitLoadout {
     pub SuitMods: Vec<String>,
     pub LoadoutID: f64,
     pub LoadoutName: String,
-    pub Modules: Vec<ModulesStruct>,
+    pub Modules: Vec<SwitchSuitLoadoutModules>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct ClearSavedGame {
@@ -2553,7 +2553,7 @@ pub struct CarrierDecommission {
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct CargoTransfer {
     pub timestamp: String,
-    pub Transfers: Vec<TransfersStruct>,
+    pub Transfers: Vec<CargoTransferTransfers>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct PowerplayMerits {
@@ -2756,7 +2756,7 @@ pub struct CollectItems {
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct EngineerProgress {
     pub timestamp: String,
-    pub Engineers: Option<Vec<EngineersStruct>>,
+    pub Engineers: Option<Vec<EngineerProgressEngineers>>,
     pub Engineer: Option<String>,
     pub EngineerID: Option<f64>,
     pub Progress: Option<String>,
@@ -2783,8 +2783,8 @@ pub struct StoredShips {
     pub StationName: String,
     pub MarketID: f64,
     pub StarSystem: String,
-    pub ShipsHere: Vec<ShipsHereStruct>,
-    pub ShipsRemote: Vec<ShipsRemoteStruct>,
+    pub ShipsHere: Vec<StoredShipsShipsHere>,
+    pub ShipsRemote: Vec<StoredShipsShipsRemote>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct CrewMemberQuits {
@@ -2838,7 +2838,7 @@ pub struct EngineerLegacyConvert {
     pub BlueprintName: String,
     pub Level: f64,
     pub Quality: f64,
-    pub Modifiers: Vec<ModifiersStruct>,
+    pub Modifiers: Vec<EngineerLegacyConvertModifiers>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct CarrierJump {
@@ -2848,13 +2848,13 @@ pub struct CarrierJump {
     pub StationName: String,
     pub StationType: String,
     pub MarketID: f64,
-    pub StationFaction: Option<StationFactionStruct>,
+    pub StationFaction: Option<CarrierJumpStationFaction>,
     pub StationGovernment: String,
     pub StationGovernment_Localised: Option<String>,
     pub StationServices: Option<Vec<String>>,
     pub StationEconomy: String,
     pub StationEconomy_Localised: Option<String>,
-    pub StationEconomies: Option<Vec<StationEconomiesStruct>>,
+    pub StationEconomies: Option<Vec<CarrierJumpStationEconomies>>,
     pub Taxi: Option<bool>,
     pub Multicrew: Option<bool>,
     pub Wanted: Option<bool>,
@@ -2874,17 +2874,17 @@ pub struct CarrierJump {
     pub Body: String,
     pub BodyID: f64,
     pub BodyType: String,
-    pub Factions: Option<Vec<FactionsStruct>>,
-    pub SystemFaction: Option<SystemFactionStruct>,
-    pub Conflicts: Option<Vec<ConflictsStruct>>,
-    pub ThargoidWar: Option<ThargoidWarStruct>,
+    pub Factions: Option<Vec<CarrierJumpFactions>>,
+    pub SystemFaction: Option<CarrierJumpSystemFaction>,
+    pub Conflicts: Option<Vec<CarrierJumpConflicts>>,
+    pub ThargoidWar: Option<CarrierJumpThargoidWar>,
     pub Powers: Option<Vec<String>>,
     pub ControllingPower: Option<String>,
     pub PowerplayState: Option<String>,
     pub PowerplayStateControlProgress: Option<f64>,
     pub PowerplayStateReinforcement: Option<f64>,
     pub PowerplayStateUndermining: Option<f64>,
-    pub PowerplayConflictProgress: Option<Vec<PowerplayConflictProgressStruct>>,
+    pub PowerplayConflictProgress: Option<Vec<CarrierJumpPowerplayConflictProgress>>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct LoadGame {
@@ -2934,7 +2934,7 @@ pub struct Market {
     pub StationType: String,
     pub CarrierDockingAccess: Option<String>,
     pub StarSystem: String,
-    pub Items: Option<Vec<ItemsStruct>>,
+    pub Items: Option<Vec<MarketItems>>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct PowerplayFastTrack {
@@ -2959,24 +2959,24 @@ pub struct SearchAndRescue {
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct Statistics {
     pub timestamp: String,
-    pub Bank_Account: Bank_AccountStruct,
-    pub Combat: CombatStruct,
-    pub Crime: CrimeStruct,
-    pub Smuggling: SmugglingStruct,
-    pub Trading: TradingStruct,
-    pub Mining: MiningStruct,
-    pub Exploration: ExplorationStruct,
-    pub Passengers: PassengersStruct,
-    pub Search_And_Rescue: Search_And_RescueStruct,
-    pub Crafting: Option<CraftingStruct>,
-    pub Crew: Option<CrewStruct>,
-    pub Multicrew: Option<MulticrewStruct>,
-    pub Material_Trader_Stats: Option<Material_Trader_StatsStruct>,
-    pub FLEETCARRIER: Option<FLEETCARRIERStruct>,
-    pub Exobiology: Option<ExobiologyStruct>,
-    pub TG_ENCOUNTERS: Option<TG_ENCOUNTERSStruct>,
-    pub CQC: Option<CQCStruct>,
-    pub Squadron: Option<SquadronStruct>,
+    pub Bank_Account: StatisticsBank_Account,
+    pub Combat: StatisticsCombat,
+    pub Crime: StatisticsCrime,
+    pub Smuggling: StatisticsSmuggling,
+    pub Trading: StatisticsTrading,
+    pub Mining: StatisticsMining,
+    pub Exploration: StatisticsExploration,
+    pub Passengers: StatisticsPassengers,
+    pub Search_And_Rescue: StatisticsSearch_And_Rescue,
+    pub Crafting: Option<StatisticsCrafting>,
+    pub Crew: Option<StatisticsCrew>,
+    pub Multicrew: Option<StatisticsMulticrew>,
+    pub Material_Trader_Stats: Option<StatisticsMaterial_Trader_Stats>,
+    pub FLEETCARRIER: Option<StatisticsFLEETCARRIER>,
+    pub Exobiology: Option<StatisticsExobiology>,
+    pub TG_ENCOUNTERS: Option<StatisticsTG_ENCOUNTERS>,
+    pub CQC: Option<StatisticsCQC>,
+    pub Squadron: Option<StatisticsSquadron>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct DockingDenied {
@@ -2991,7 +2991,7 @@ pub struct DockingDenied {
 pub struct ColonisationContribution {
     pub timestamp: String,
     pub MarketID: f64,
-    pub Contributions: Vec<ContributionsStruct>,
+    pub Contributions: Vec<ColonisationContributionContributions>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct CarrierTradeOrder {
@@ -3021,7 +3021,7 @@ pub struct WingJoin {
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct TradeMicroResources {
     pub timestamp: String,
-    pub Offered: Vec<OfferedStruct>,
+    pub Offered: Vec<TradeMicroResourcesOffered>,
     pub TotalCount: f64,
     pub Received: String,
     pub Received_Localised: Option<String>,
@@ -3071,9 +3071,9 @@ pub struct TechnologyBroker {
     pub timestamp: String,
     pub BrokerType: String,
     pub MarketID: f64,
-    pub ItemsUnlocked: Vec<ItemsUnlockedStruct>,
-    pub Commodities: Vec<CommoditiesStruct>,
-    pub Materials: Vec<MaterialsStruct>,
+    pub ItemsUnlocked: Vec<TechnologyBrokerItemsUnlocked>,
+    pub Commodities: Vec<TechnologyBrokerCommodities>,
+    pub Materials: Vec<TechnologyBrokerMaterials>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
 pub struct JoinedSquadron {
@@ -3109,9 +3109,9 @@ pub struct Loadout {
     pub UnladenMass: f64,
     pub CargoCapacity: f64,
     pub MaxJumpRange: f64,
-    pub FuelCapacity: FuelCapacityStruct,
+    pub FuelCapacity: LoadoutFuelCapacity,
     pub Rebuy: f64,
-    pub Modules: Vec<ModulesStruct>,
+    pub Modules: Vec<LoadoutModules>,
     pub Hot: Option<bool>,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
@@ -3126,7 +3126,7 @@ pub struct LaunchDrone {
     pub Type: String,
 }
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct ItemCommonStruct {
+pub struct Item {
     pub Name: String,
     pub Name_Localised: Option<String>,
     pub OwnerID: f64,
@@ -3135,7 +3135,7 @@ pub struct ItemCommonStruct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct ComponentCommonStruct {
+pub struct Component {
     pub Name: String,
     pub OwnerID: f64,
     pub Count: f64,
@@ -3144,7 +3144,7 @@ pub struct ComponentCommonStruct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct ConsumableCommonStruct {
+pub struct Consumable {
     pub Name: String,
     pub Name_Localised: Option<String>,
     pub OwnerID: f64,
@@ -3152,7 +3152,7 @@ pub struct ConsumableCommonStruct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct DataCommonStruct {
+pub struct Data {
     pub Name: String,
     pub OwnerID: f64,
     pub MissionID: Option<f64>,
@@ -3161,7 +3161,7 @@ pub struct DataCommonStruct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct ChangeEntryCommonStruct {
+pub struct ChangeEntry {
     pub Name: String,
     pub Name_Localised: Option<String>,
     pub OwnerID: f64,
@@ -3171,39 +3171,60 @@ pub struct ChangeEntryCommonStruct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct StationFactionStruct {
+pub struct DockedStationFaction {
     pub Name: String,
+    pub FactionState: Option<String>,
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct StationEconomiesStruct {
+pub struct DockedStationEconomies {
     pub Name: String,
     pub Name_Localised: Option<String>,
     pub Proportion: f64,
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct LandingPadsStruct {
+pub struct DockedLandingPads {
     pub Small: f64,
     pub Medium: f64,
     pub Large: f64,
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct SignalsStruct {
+pub struct DockingRequestedLandingPads {
+    pub Small: f64,
+    pub Medium: f64,
+    pub Large: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct ApproachSettlementStationFaction {
+    pub Name: String,
+    pub FactionState: Option<String>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct ApproachSettlementStationEconomies {
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub Proportion: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct SAASignalsFoundSignals {
     pub Type: String,
     pub Type_Localised: Option<String>,
     pub Count: f64,
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct GenusesStruct {
+pub struct SAASignalsFoundGenuses {
     pub Genus: String,
     pub Genus_Localised: Option<String>,
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct FactionsStruct {
+pub struct LocationFactions {
     pub Name: String,
     pub FactionState: String,
     pub Government: String,
@@ -3211,37 +3232,37 @@ pub struct FactionsStruct {
     pub Allegiance: String,
     pub Happiness: String,
     pub Happiness_Localised: Option<String>,
-    pub HappiestSystem: Option<bool>,
     pub MyReputation: f64,
-    pub PendingStates: Option<Vec<PendingStatesStruct>>,
-    pub ActiveStates: Option<Vec<ActiveStatesStruct>>,
+    pub ActiveStates: Option<Vec<LocationFactionsActiveStates>>,
+    pub RecoveringStates: Option<Vec<LocationFactionsRecoveringStates>>,
+    pub PendingStates: Option<Vec<LocationFactionsPendingStates>>,
     pub SquadronFaction: Option<bool>,
+    pub HappiestSystem: Option<bool>,
     pub HomeSystem: Option<bool>,
-    pub RecoveringStates: Option<Vec<RecoveringStatesStruct>>,
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct SystemFactionStruct {
+pub struct LocationSystemFaction {
     pub Name: String,
     pub FactionState: Option<String>,
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct PowerplayConflictProgressStruct {
+pub struct LocationPowerplayConflictProgress {
     pub Power: String,
     pub ConflictProgress: f64,
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct ConflictsStruct {
+pub struct LocationConflicts {
     pub WarType: String,
     pub Status: String,
-    pub Faction1: Faction1Struct,
-    pub Faction2: Faction2Struct,
+    pub Faction1: LocationConflictsFaction1,
+    pub Faction2: LocationConflictsFaction2,
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct ThargoidWarStruct {
+pub struct LocationThargoidWar {
     pub CurrentState: String,
     pub NextStateSuccess: Option<String>,
     pub NextStateFailure: Option<String>,
@@ -3252,7 +3273,20 @@ pub struct ThargoidWarStruct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct RouteStruct {
+pub struct LocationStationFaction {
+    pub Name: String,
+    pub FactionState: Option<String>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct LocationStationEconomies {
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub Proportion: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct NavRouteRoute {
     pub StarSystem: String,
     pub SystemAddress: f64,
     pub StarPos: Vec<f64>,
@@ -3260,14 +3294,14 @@ pub struct RouteStruct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct DiscoveredStruct {
+pub struct MultiSellExplorationDataDiscovered {
     pub SystemName: String,
     pub SystemName_Localised: Option<String>,
     pub NumBodies: f64,
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct BioDataStruct {
+pub struct SellOrganicDataBioData {
     pub Genus: String,
     pub Genus_Localised: Option<String>,
     pub Species: String,
@@ -3279,7 +3313,7 @@ pub struct BioDataStruct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct ResourcesRequiredStruct {
+pub struct ColonisationConstructionDepotResourcesRequired {
     pub Name: String,
     pub Name_Localised: String,
     pub RequiredAmount: f64,
@@ -3288,15 +3322,21 @@ pub struct ResourcesRequiredStruct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct MaterialsStruct {
+pub struct SynthesisMaterials {
     pub Name: String,
-    pub Name_Localised: Option<String>,
     pub Count: f64,
-    pub Category: String,
+    pub Name_Localised: Option<String>,
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct MicroResourcesStruct {
+pub struct ProspectedAsteroidMaterials {
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub Proportion: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct DeliverPowerMicroResourcesMicroResources {
     pub Name: String,
     pub Name_Localised: Option<String>,
     pub Category: String,
@@ -3304,7 +3344,619 @@ pub struct MicroResourcesStruct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct ItemsStruct {
+pub struct StoredModulesItems {
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub StorageSlot: f64,
+    pub StarSystem: Option<String>,
+    pub MarketID: Option<f64>,
+    pub TransferCost: Option<f64>,
+    pub TransferTime: Option<f64>,
+    pub BuyPrice: f64,
+    pub Hot: bool,
+    pub EngineerModifications: Option<String>,
+    pub Level: Option<f64>,
+    pub Quality: Option<f64>,
+    pub InTransit: Option<bool>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct FSSBodySignalsSignals {
+    pub Type: String,
+    pub Type_Localised: Option<String>,
+    pub Count: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct ShipLockerMaterialsItems {
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub OwnerID: f64,
+    pub Count: f64,
+    pub MissionID: Option<f64>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct ShipLockerMaterialsComponents {
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub OwnerID: f64,
+    pub Count: f64,
+    pub MissionID: Option<f64>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct ShipLockerMaterialsConsumables {
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub OwnerID: f64,
+    pub Count: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct ShipLockerMaterialsData {
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub OwnerID: f64,
+    pub Count: f64,
+    pub MissionID: Option<f64>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct DiedKillers {
+    pub KillerName: Option<String>,
+    pub KillerShip: Option<String>,
+    pub KillerRank: Option<String>,
+    pub KillerName_Localised: Option<String>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct ModuleInfoModules {
+    pub Slot: String,
+    pub Item: String,
+    pub Power: f64,
+    pub Priority: Option<f64>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct BuyMicroResourcesMicroResources {
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub Category: String,
+    pub Count: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct ShipyardPriceList {
+    pub id: f64,
+    pub ShipType: String,
+    pub ShipPrice: f64,
+    pub ShipType_Localised: Option<String>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct EmbarkCrew {
+    pub Name: String,
+    pub Role: String,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct RedeemVoucherFactions {
+    pub Faction: String,
+    pub Amount: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct TransferMicroResourcesTransfers {
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub Category: String,
+    pub LockerOldCount: f64,
+    pub LockerNewCount: f64,
+    pub Direction: String,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct MassModuleStoreItems {
+    pub Slot: String,
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub Hot: bool,
+    pub EngineerModifications: Option<String>,
+    pub Level: Option<f64>,
+    pub Quality: Option<f64>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct BountyRewards {
+    pub Faction: String,
+    pub Reward: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct OutfittingItems {
+    pub id: f64,
+    pub Name: String,
+    pub BuyPrice: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct CreateSuitLoadoutModules {
+    pub SlotName: String,
+    pub SuitModuleID: f64,
+    pub ModuleName: String,
+    pub ModuleName_Localised: Option<String>,
+    pub Class: f64,
+    pub WeaponMods: Vec<String>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct SuitLoadoutModules {
+    pub SlotName: String,
+    pub SuitModuleID: f64,
+    pub ModuleName: String,
+    pub ModuleName_Localised: Option<String>,
+    pub Class: f64,
+    pub WeaponMods: Vec<String>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct FSDJumpFactions {
+    pub Name: String,
+    pub FactionState: String,
+    pub Government: String,
+    pub Influence: f64,
+    pub Allegiance: String,
+    pub Happiness: String,
+    pub Happiness_Localised: Option<String>,
+    pub MyReputation: f64,
+    pub ActiveStates: Option<Vec<FSDJumpFactionsActiveStates>>,
+    pub RecoveringStates: Option<Vec<FSDJumpFactionsRecoveringStates>>,
+    pub PendingStates: Option<Vec<FSDJumpFactionsPendingStates>>,
+    pub SquadronFaction: Option<bool>,
+    pub HappiestSystem: Option<bool>,
+    pub HomeSystem: Option<bool>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct FSDJumpSystemFaction {
+    pub Name: String,
+    pub FactionState: Option<String>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct FSDJumpPowerplayConflictProgress {
+    pub Power: String,
+    pub ConflictProgress: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct FSDJumpConflicts {
+    pub WarType: String,
+    pub Status: String,
+    pub Faction1: FSDJumpConflictsFaction1,
+    pub Faction2: FSDJumpConflictsFaction2,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct FSDJumpThargoidWar {
+    pub CurrentState: String,
+    pub NextStateSuccess: Option<String>,
+    pub NextStateFailure: Option<String>,
+    pub SuccessStateReached: bool,
+    pub WarProgress: Option<f64>,
+    pub RemainingPorts: Option<f64>,
+    pub EstimatedRemainingTime: Option<String>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct MissionCompletedCommodityReward {
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub Count: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct MissionCompletedMaterialsReward {
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub Category: String,
+    pub Category_Localised: Option<String>,
+    pub Count: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct MissionCompletedFactionEffects {
+    pub Faction: String,
+    pub Effects: Vec<MissionCompletedFactionEffectsEffects>,
+    pub Influence: Vec<MissionCompletedFactionEffectsInfluence>,
+    pub ReputationTrend: String,
+    pub Reputation: String,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct CommunityGoalCurrentGoals {
+    pub CGID: f64,
+    pub Title: String,
+    pub SystemName: String,
+    pub MarketName: String,
+    pub Expiry: String,
+    pub IsComplete: bool,
+    pub CurrentTotal: f64,
+    pub PlayerContribution: f64,
+    pub NumContributors: f64,
+    pub TopTier: CommunityGoalCurrentGoalsTopTier,
+    pub TopRankSize: Option<f64>,
+    pub PlayerInTopRank: Option<bool>,
+    pub TierReached: Option<String>,
+    pub PlayerPercentileBand: f64,
+    pub Bonus: Option<f64>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct CargoInventory {
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub Count: f64,
+    pub Stolen: f64,
+    pub MissionID: Option<f64>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct MaterialsRaw {
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub Count: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct MaterialsManufactured {
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub Count: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct MaterialsEncoded {
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub Count: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct CarrierStatsSpaceUsage {
+    pub TotalCapacity: f64,
+    pub Crew: f64,
+    pub Cargo: f64,
+    pub CargoSpaceReserved: f64,
+    pub ShipPacks: f64,
+    pub ModulePacks: f64,
+    pub FreeSpace: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct CarrierStatsFinance {
+    pub CarrierBalance: f64,
+    pub ReserveBalance: f64,
+    pub AvailableBalance: f64,
+    pub ReservePercent: Option<f64>,
+    pub TaxRate_shipyard: Option<f64>,
+    pub TaxRate_rearm: Option<f64>,
+    pub TaxRate_outfitting: Option<f64>,
+    pub TaxRate_refuel: Option<f64>,
+    pub TaxRate_repair: Option<f64>,
+    pub TaxRate_pioneersupplies: Option<f64>,
+    pub TaxRate: Option<f64>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct CarrierStatsCrew {
+    pub CrewRole: String,
+    pub Activated: bool,
+    pub Enabled: Option<bool>,
+    pub CrewName: Option<String>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct CarrierStatsShipPacks {
+    pub PackTheme: String,
+    pub PackTier: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct CarrierStatsModulePacks {
+    pub PackTheme: String,
+    pub PackTier: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct UpgradeSuitResources {
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub Count: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct MaterialTradePaid {
+    pub Material: String,
+    pub Material_Localised: Option<String>,
+    pub Category: String,
+    pub Quantity: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct MaterialTradeReceived {
+    pub Material: String,
+    pub Material_Localised: Option<String>,
+    pub Category: String,
+    pub Quantity: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct ScanParents {
+    pub Star: Option<f64>,
+    pub Null: Option<f64>,
+    pub Ring: Option<f64>,
+    pub Planet: Option<f64>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct ScanAtmosphereComposition {
+    pub Name: String,
+    pub Percent: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct ScanComposition {
+    pub Ice: f64,
+    pub Rock: f64,
+    pub Metal: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct ScanRings {
+    pub Name: String,
+    pub RingClass: String,
+    pub MassMT: f64,
+    pub InnerRad: f64,
+    pub OuterRad: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct ScanMaterials {
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub Percent: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct FCMaterialsItems {
+    pub id: f64,
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub Price: f64,
+    pub Stock: f64,
+    pub Demand: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct SellMicroResourcesMicroResources {
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub Category: String,
+    pub Count: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct RequestPowerMicroResourcesMicroResources {
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub Category: String,
+    pub Count: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct MissionsActive {
+    pub MissionID: f64,
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub PassengerMission: bool,
+    pub Expires: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct MissionsFailed {
+    pub MissionID: f64,
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub PassengerMission: bool,
+    pub Expires: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct MissionsComplete {
+    pub MissionID: f64,
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub PassengerMission: bool,
+    pub Expires: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct UpgradeWeaponResources {
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub Count: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct StatusFuel {
+    pub FuelMain: f64,
+    pub FuelReservoir: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct StatusDestination {
+    pub System: f64,
+    pub Body: f64,
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct NavRouteClearRoute {
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct PassengersManifest {
+    pub MissionID: f64,
+    pub Type: String,
+    pub VIP: bool,
+    pub Wanted: bool,
+    pub Count: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct EngineerCraftIngredients {
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub Count: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct EngineerCraftModifiers {
+    pub Label: String,
+    pub Value: Option<f64>,
+    pub ValueStr: Option<String>,
+    pub ValueStr_Localised: Option<String>,
+    pub OriginalValue: Option<f64>,
+    pub LessIsGood: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct SwitchSuitLoadoutModules {
+    pub SlotName: String,
+    pub SuitModuleID: f64,
+    pub ModuleName: String,
+    pub ModuleName_Localised: Option<String>,
+    pub Class: f64,
+    pub WeaponMods: Vec<String>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct CargoTransferTransfers {
+    pub Type: String,
+    pub Type_Localised: Option<String>,
+    pub Count: f64,
+    pub Direction: String,
+    pub MissionID: Option<f64>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct EngineerProgressEngineers {
+    pub Engineer: String,
+    pub EngineerID: f64,
+    pub Progress: String,
+    pub RankProgress: Option<f64>,
+    pub Rank: Option<f64>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct StoredShipsShipsHere {
+    pub ShipID: f64,
+    pub ShipType: String,
+    pub Value: f64,
+    pub Hot: bool,
+    pub ShipType_Localised: Option<String>,
+    pub Name: Option<String>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct StoredShipsShipsRemote {
+    pub ShipID: f64,
+    pub ShipType: String,
+    pub Name: Option<String>,
+    pub StarSystem: Option<String>,
+    pub ShipMarketID: Option<f64>,
+    pub TransferPrice: Option<f64>,
+    pub TransferTime: Option<f64>,
+    pub Value: f64,
+    pub Hot: bool,
+    pub ShipType_Localised: Option<String>,
+    pub InTransit: Option<bool>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct EngineerLegacyConvertModifiers {
+    pub Label: String,
+    pub Value: f64,
+    pub OriginalValue: f64,
+    pub LessIsGood: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct CarrierJumpStationFaction {
+    pub Name: String,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct CarrierJumpStationEconomies {
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub Proportion: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct CarrierJumpFactions {
+    pub Name: String,
+    pub FactionState: String,
+    pub Government: String,
+    pub Influence: f64,
+    pub Allegiance: String,
+    pub Happiness: String,
+    pub Happiness_Localised: Option<String>,
+    pub HappiestSystem: Option<bool>,
+    pub MyReputation: f64,
+    pub PendingStates: Option<Vec<CarrierJumpFactionsPendingStates>>,
+    pub ActiveStates: Option<Vec<CarrierJumpFactionsActiveStates>>,
+    pub SquadronFaction: Option<bool>,
+    pub HomeSystem: Option<bool>,
+    pub RecoveringStates: Option<Vec<CarrierJumpFactionsRecoveringStates>>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct CarrierJumpSystemFaction {
+    pub Name: String,
+    pub FactionState: Option<String>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct CarrierJumpConflicts {
+    pub WarType: String,
+    pub Status: String,
+    pub Faction1: CarrierJumpConflictsFaction1,
+    pub Faction2: CarrierJumpConflictsFaction2,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct CarrierJumpThargoidWar {
+    pub CurrentState: String,
+    pub NextStateSuccess: Option<String>,
+    pub NextStateFailure: Option<String>,
+    pub SuccessStateReached: bool,
+    pub WarProgress: Option<f64>,
+    pub RemainingPorts: Option<f64>,
+    pub EstimatedRemainingTime: Option<String>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct CarrierJumpPowerplayConflictProgress {
+    pub Power: String,
+    pub ConflictProgress: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct MarketItems {
     pub id: f64,
     pub Name: String,
     pub Name_Localised: Option<String>,
@@ -3323,349 +3975,7 @@ pub struct ItemsStruct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct ComponentsStruct {
-    pub Name: String,
-    pub Name_Localised: Option<String>,
-    pub OwnerID: f64,
-    pub Count: f64,
-    pub MissionID: Option<f64>,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct ConsumablesStruct {
-    pub Name: String,
-    pub Name_Localised: Option<String>,
-    pub OwnerID: f64,
-    pub Count: f64,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct DataStruct {
-    pub Name: String,
-    pub Name_Localised: Option<String>,
-    pub OwnerID: f64,
-    pub Count: f64,
-    pub MissionID: Option<f64>,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct KillersStruct {
-    pub KillerName: Option<String>,
-    pub KillerShip: Option<String>,
-    pub KillerRank: Option<String>,
-    pub KillerName_Localised: Option<String>,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct ModulesStruct {
-    pub Slot: String,
-    pub Item: String,
-    pub On: bool,
-    pub Priority: f64,
-    pub AmmoInClip: Option<f64>,
-    pub AmmoInHopper: Option<f64>,
-    pub Health: f64,
-    pub Value: Option<f64>,
-    pub Engineering: Option<EngineeringStruct>,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct PriceListStruct {
-    pub id: f64,
-    pub ShipType: String,
-    pub ShipPrice: f64,
-    pub ShipType_Localised: Option<String>,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct CrewStruct {
-    pub NpcCrew_TotalWages: Option<f64>,
-    pub NpcCrew_Hired: Option<f64>,
-    pub NpcCrew_Fired: Option<f64>,
-    pub NpcCrew_Died: Option<f64>,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct TransfersStruct {
-    pub Type: String,
-    pub Type_Localised: Option<String>,
-    pub Count: f64,
-    pub Direction: String,
-    pub MissionID: Option<f64>,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct RewardsStruct {
-    pub Faction: String,
-    pub Reward: f64,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct CommodityRewardStruct {
-    pub Name: String,
-    pub Name_Localised: Option<String>,
-    pub Count: f64,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct MaterialsRewardStruct {
-    pub Name: String,
-    pub Name_Localised: Option<String>,
-    pub Category: String,
-    pub Category_Localised: Option<String>,
-    pub Count: f64,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct FactionEffectsStruct {
-    pub Faction: String,
-    pub Effects: Vec<EffectsStruct>,
-    pub Influence: Vec<InfluenceStruct>,
-    pub ReputationTrend: String,
-    pub Reputation: String,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct CurrentGoalsStruct {
-    pub CGID: f64,
-    pub Title: String,
-    pub SystemName: String,
-    pub MarketName: String,
-    pub Expiry: String,
-    pub IsComplete: bool,
-    pub CurrentTotal: f64,
-    pub PlayerContribution: f64,
-    pub NumContributors: f64,
-    pub TopTier: TopTierStruct,
-    pub TopRankSize: Option<f64>,
-    pub PlayerInTopRank: Option<bool>,
-    pub TierReached: Option<String>,
-    pub PlayerPercentileBand: f64,
-    pub Bonus: Option<f64>,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct InventoryStruct {
-    pub Name: String,
-    pub Name_Localised: Option<String>,
-    pub Count: f64,
-    pub Stolen: f64,
-    pub MissionID: Option<f64>,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct RawStruct {
-    pub Name: String,
-    pub Name_Localised: Option<String>,
-    pub Count: f64,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct ManufacturedStruct {
-    pub Name: String,
-    pub Name_Localised: Option<String>,
-    pub Count: f64,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct EncodedStruct {
-    pub Name: String,
-    pub Name_Localised: Option<String>,
-    pub Count: f64,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct SpaceUsageStruct {
-    pub TotalCapacity: f64,
-    pub Crew: f64,
-    pub Cargo: f64,
-    pub CargoSpaceReserved: f64,
-    pub ShipPacks: f64,
-    pub ModulePacks: f64,
-    pub FreeSpace: f64,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct FinanceStruct {
-    pub CarrierBalance: f64,
-    pub ReserveBalance: f64,
-    pub AvailableBalance: f64,
-    pub ReservePercent: Option<f64>,
-    pub TaxRate_shipyard: Option<f64>,
-    pub TaxRate_rearm: Option<f64>,
-    pub TaxRate_outfitting: Option<f64>,
-    pub TaxRate_refuel: Option<f64>,
-    pub TaxRate_repair: Option<f64>,
-    pub TaxRate_pioneersupplies: Option<f64>,
-    pub TaxRate: Option<f64>,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct ShipPacksStruct {
-    pub PackTheme: String,
-    pub PackTier: f64,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct ModulePacksStruct {
-    pub PackTheme: String,
-    pub PackTier: f64,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct ResourcesStruct {
-    pub Name: String,
-    pub Name_Localised: Option<String>,
-    pub Count: f64,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct PaidStruct {
-    pub Material: String,
-    pub Material_Localised: Option<String>,
-    pub Category: String,
-    pub Quantity: f64,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct ReceivedStruct {
-    pub Material: String,
-    pub Material_Localised: Option<String>,
-    pub Category: String,
-    pub Quantity: f64,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct ParentsStruct {
-    pub Star: Option<f64>,
-    pub Null: Option<f64>,
-    pub Ring: Option<f64>,
-    pub Planet: Option<f64>,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct AtmosphereCompositionStruct {
-    pub Name: String,
-    pub Percent: f64,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct CompositionStruct {
-    pub Ice: f64,
-    pub Rock: f64,
-    pub Metal: f64,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct RingsStruct {
-    pub Name: String,
-    pub RingClass: String,
-    pub MassMT: f64,
-    pub InnerRad: f64,
-    pub OuterRad: f64,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct ActiveStruct {
-    pub MissionID: f64,
-    pub Name: String,
-    pub Name_Localised: Option<String>,
-    pub PassengerMission: bool,
-    pub Expires: f64,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct FailedStruct {
-    pub MissionID: f64,
-    pub Name: String,
-    pub Name_Localised: Option<String>,
-    pub PassengerMission: bool,
-    pub Expires: f64,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct CompleteStruct {
-    pub MissionID: f64,
-    pub Name: String,
-    pub Name_Localised: Option<String>,
-    pub PassengerMission: bool,
-    pub Expires: f64,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct FuelStruct {
-    pub FuelMain: f64,
-    pub FuelReservoir: f64,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct DestinationStruct {
-    pub System: f64,
-    pub Body: f64,
-    pub Name: String,
-    pub Name_Localised: Option<String>,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct ManifestStruct {
-    pub MissionID: f64,
-    pub Type: String,
-    pub VIP: bool,
-    pub Wanted: bool,
-    pub Count: f64,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct IngredientsStruct {
-    pub Name: String,
-    pub Name_Localised: Option<String>,
-    pub Count: f64,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct ModifiersStruct {
-    pub Label: String,
-    pub Value: f64,
-    pub OriginalValue: f64,
-    pub LessIsGood: f64,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct EngineersStruct {
-    pub Engineer: String,
-    pub EngineerID: f64,
-    pub Progress: String,
-    pub RankProgress: Option<f64>,
-    pub Rank: Option<f64>,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct ShipsHereStruct {
-    pub ShipID: f64,
-    pub ShipType: String,
-    pub Value: f64,
-    pub Hot: bool,
-    pub ShipType_Localised: Option<String>,
-    pub Name: Option<String>,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct ShipsRemoteStruct {
-    pub ShipID: f64,
-    pub ShipType: String,
-    pub Name: Option<String>,
-    pub StarSystem: Option<String>,
-    pub ShipMarketID: Option<f64>,
-    pub TransferPrice: Option<f64>,
-    pub TransferTime: Option<f64>,
-    pub Value: f64,
-    pub Hot: bool,
-    pub ShipType_Localised: Option<String>,
-    pub InTransit: Option<bool>,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct Bank_AccountStruct {
+pub struct StatisticsBank_Account {
     pub Current_Wealth: f64,
     pub Spent_On_Ships: f64,
     pub Spent_On_Outfitting: f64,
@@ -3685,7 +3995,7 @@ pub struct Bank_AccountStruct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct CombatStruct {
+pub struct StatisticsCombat {
     pub Bounties_Claimed: f64,
     pub Bounty_Hunting_Profit: f64,
     pub Combat_Bonds: f64,
@@ -3716,7 +4026,7 @@ pub struct CombatStruct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct CrimeStruct {
+pub struct StatisticsCrime {
     pub Notoriety: Option<f64>,
     pub Fines: f64,
     pub Total_Fines: f64,
@@ -3743,7 +4053,7 @@ pub struct CrimeStruct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct SmugglingStruct {
+pub struct StatisticsSmuggling {
     pub Black_Markets_Traded_With: f64,
     pub Black_Markets_Profits: f64,
     pub Resources_Smuggled: f64,
@@ -3752,7 +4062,7 @@ pub struct SmugglingStruct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct TradingStruct {
+pub struct StatisticsTrading {
     pub Markets_Traded_With: f64,
     pub Market_Profits: f64,
     pub Resources_Traded: f64,
@@ -3764,14 +4074,14 @@ pub struct TradingStruct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct MiningStruct {
+pub struct StatisticsMining {
     pub Mining_Profits: f64,
     pub Quantity_Mined: f64,
     pub Materials_Collected: Option<f64>,
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct ExplorationStruct {
+pub struct StatisticsExploration {
     pub Systems_Visited: f64,
     pub Exploration_Profits: f64,
     pub Planets_Scanned_To_Level_2: f64,
@@ -3794,7 +4104,7 @@ pub struct ExplorationStruct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct PassengersStruct {
+pub struct StatisticsPassengers {
     pub Passengers_Missions_Accepted: Option<f64>,
     pub Passengers_Missions_Disgruntled: Option<f64>,
     pub Passengers_Missions_Bulk: f64,
@@ -3804,7 +4114,7 @@ pub struct PassengersStruct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct Search_And_RescueStruct {
+pub struct StatisticsSearch_And_Rescue {
     pub SearchRescue_Traded: f64,
     pub SearchRescue_Profit: f64,
     pub SearchRescue_Count: f64,
@@ -3819,7 +4129,7 @@ pub struct Search_And_RescueStruct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct CraftingStruct {
+pub struct StatisticsCrafting {
     pub Count_Of_Used_Engineers: f64,
     pub Recipes_Generated: f64,
     pub Recipes_Generated_Rank_1: f64,
@@ -3846,7 +4156,15 @@ pub struct CraftingStruct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct MulticrewStruct {
+pub struct StatisticsCrew {
+    pub NpcCrew_TotalWages: Option<f64>,
+    pub NpcCrew_Hired: Option<f64>,
+    pub NpcCrew_Fired: Option<f64>,
+    pub NpcCrew_Died: Option<f64>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct StatisticsMulticrew {
     pub Multicrew_Time_Total: f64,
     pub Multicrew_Gunner_Time_Total: f64,
     pub Multicrew_Fighter_Time_Total: f64,
@@ -3855,7 +4173,7 @@ pub struct MulticrewStruct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct Material_Trader_StatsStruct {
+pub struct StatisticsMaterial_Trader_Stats {
     pub Trades_Completed: f64,
     pub Materials_Traded: f64,
     pub Encoded_Materials_Traded: Option<f64>,
@@ -3870,7 +4188,7 @@ pub struct Material_Trader_StatsStruct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct FLEETCARRIERStruct {
+pub struct StatisticsFLEETCARRIER {
     pub FLEETCARRIER_EXPORT_TOTAL: f64,
     pub FLEETCARRIER_IMPORT_TOTAL: f64,
     pub FLEETCARRIER_TRADEPROFIT_TOTAL: f64,
@@ -3892,7 +4210,7 @@ pub struct FLEETCARRIERStruct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct ExobiologyStruct {
+pub struct StatisticsExobiology {
     pub Organic_Genus_Encountered: f64,
     pub Organic_Species_Encountered: f64,
     pub Organic_Variant_Encountered: f64,
@@ -3907,7 +4225,7 @@ pub struct ExobiologyStruct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct TG_ENCOUNTERSStruct {
+pub struct StatisticsTG_ENCOUNTERS {
     pub TG_ENCOUNTER_IMPRINT: Option<f64>,
     pub TG_ENCOUNTER_WAKES: Option<f64>,
     pub TG_ENCOUNTER_KILLED: Option<f64>,
@@ -3919,7 +4237,7 @@ pub struct TG_ENCOUNTERSStruct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct CQCStruct {
+pub struct StatisticsCQC {
     pub CQC_Credits_Earned: Option<f64>,
     pub CQC_Time_Played: f64,
     pub CQC_KD: f64,
@@ -3928,7 +4246,7 @@ pub struct CQCStruct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct SquadronStruct {
+pub struct StatisticsSquadron {
     pub Squadron_Bank_Credits_Deposited: f64,
     pub Squadron_Bank_Credits_Withdrawn: f64,
     pub Squadron_Bank_Commodities_Deposited_Num: f64,
@@ -3956,14 +4274,14 @@ pub struct SquadronStruct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct ContributionsStruct {
+pub struct ColonisationContributionContributions {
     pub Name: String,
     pub Name_Localised: String,
     pub Amount: f64,
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct OfferedStruct {
+pub struct TradeMicroResourcesOffered {
     pub Name: String,
     pub Name_Localised: Option<String>,
     pub Category: String,
@@ -3971,43 +4289,64 @@ pub struct OfferedStruct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct ItemsUnlockedStruct {
+pub struct TechnologyBrokerItemsUnlocked {
     pub Name: String,
     pub Name_Localised: Option<String>,
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct CommoditiesStruct {
+pub struct TechnologyBrokerCommodities {
     pub Name: String,
     pub Name_Localised: Option<String>,
     pub Count: f64,
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct FuelCapacityStruct {
+pub struct TechnologyBrokerMaterials {
+    pub Name: String,
+    pub Name_Localised: Option<String>,
+    pub Count: f64,
+    pub Category: String,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct LoadoutFuelCapacity {
     pub Main: f64,
     pub Reserve: f64,
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct PendingStatesStruct {
+pub struct LoadoutModules {
+    pub Slot: String,
+    pub Item: String,
+    pub On: bool,
+    pub Priority: f64,
+    pub AmmoInClip: Option<f64>,
+    pub AmmoInHopper: Option<f64>,
+    pub Health: f64,
+    pub Value: Option<f64>,
+    pub Engineering: Option<LoadoutModulesEngineering>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct LocationFactionsActiveStates {
+    pub State: String,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct LocationFactionsRecoveringStates {
     pub State: String,
     pub Trend: f64,
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct ActiveStatesStruct {
-    pub State: String,
-}
-
-#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct RecoveringStatesStruct {
+pub struct LocationFactionsPendingStates {
     pub State: String,
     pub Trend: f64,
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct Faction1Struct {
+pub struct LocationConflictsFaction1 {
     pub Name: String,
     pub Stake: String,
     pub Stake_Localised: Option<String>,
@@ -4015,46 +4354,122 @@ pub struct Faction1Struct {
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct Faction2Struct {
+pub struct LocationConflictsFaction2 {
     pub Name: String,
     pub Stake: String,
     pub WonDays: f64,
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct EngineeringStruct {
-    pub EngineerID: f64,
-    pub BlueprintID: f64,
-    pub BlueprintName: String,
-    pub Level: f64,
-    pub Quality: f64,
-    pub Modifiers: Vec<ModifiersStruct>,
-    pub Engineer: Option<String>,
-    pub ExperimentalEffect: Option<String>,
-    pub ExperimentalEffect_Localised: Option<String>,
+pub struct FSDJumpFactionsActiveStates {
+    pub State: String,
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct EffectsStruct {
+pub struct FSDJumpFactionsRecoveringStates {
+    pub State: String,
+    pub Trend: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct FSDJumpFactionsPendingStates {
+    pub State: String,
+    pub Trend: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct FSDJumpConflictsFaction1 {
+    pub Name: String,
+    pub Stake: String,
+    pub Stake_Localised: Option<String>,
+    pub WonDays: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct FSDJumpConflictsFaction2 {
+    pub Name: String,
+    pub Stake: String,
+    pub Stake_Localised: Option<String>,
+    pub WonDays: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct MissionCompletedFactionEffectsEffects {
     pub Effect: String,
     pub Effect_Localised: Option<String>,
     pub Trend: String,
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct InfluenceStruct {
+pub struct MissionCompletedFactionEffectsInfluence {
     pub SystemAddress: f64,
     pub Trend: String,
     pub Influence: String,
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
-pub struct TopTierStruct {
+pub struct CommunityGoalCurrentGoalsTopTier {
     pub Name: String,
     pub Bonus: String,
 }
 
 #[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct CarrierJumpFactionsPendingStates {
+    pub State: String,
+    pub Trend: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct CarrierJumpFactionsActiveStates {
+    pub State: String,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct CarrierJumpFactionsRecoveringStates {
+    pub State: String,
+    pub Trend: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct CarrierJumpConflictsFaction1 {
+    pub Name: String,
+    pub Stake: String,
+    pub Stake_Localised: Option<String>,
+    pub WonDays: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct CarrierJumpConflictsFaction2 {
+    pub Name: String,
+    pub Stake: String,
+    pub WonDays: f64,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct LoadoutModulesEngineering {
+    pub EngineerID: f64,
+    pub BlueprintID: f64,
+    pub BlueprintName: String,
+    pub Level: f64,
+    pub Quality: f64,
+    pub Modifiers: Vec<LoadoutModulesEngineeringModifiers>,
+    pub Engineer: Option<String>,
+    pub ExperimentalEffect: Option<String>,
+    pub ExperimentalEffect_Localised: Option<String>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+pub struct LoadoutModulesEngineeringModifiers {
+    pub Label: String,
+    pub Value: Option<f64>,
+    pub OriginalValue: Option<f64>,
+    pub LessIsGood: Option<f64>,
+    pub ValueStr: Option<String>,
+    pub ValueStr_Localised: Option<String>,
+}
+
+#[derive(Clone, Debug, Sendable, Serialize, Deserialize)]
+#[serde(untagged)]
 pub enum FLEETCARRIER_DISTANCE_TRAVELLEDEnum {
     Lexical(String),
     Numerical(f64),

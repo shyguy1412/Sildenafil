@@ -8,5 +8,8 @@
 		"typescript.tsdk": "node_modules/typescript/lib",
 		"typescript.enablePromptUseWorkspaceTsdk": true,
 		"deno.enable": false,
+		"deno.enablePaths": [
+			"./src/core/generateEventStructs.ts"
+		]
 	}
 }

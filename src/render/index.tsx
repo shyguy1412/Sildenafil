@@ -59,15 +59,13 @@ __module_bridge_init.then(async () => {
         { col: 'blue', value: ['0', '0', '1'] },
     ];
 
-    const max = data.reduce((prev, cur) => Math.max(prev, ...cur.value.map(v => +v)), 0)
-    
 
     const rgb = ['r', 'g', 'b'];
-    for (const matrix of data) {
+    for (const matrix of testData) {
         const col = matrix.col;
         for (const cur in rgb) {
             const attr = `data-${col}-matrix-${rgb[cur]}`;
-            document.body.parentElement!.setAttribute(attr, ""+(+matrix.value[cur]/max));
+            document.body.parentElement!.setAttribute(attr, ""+(+matrix.value[cur]));
         }
     }
 

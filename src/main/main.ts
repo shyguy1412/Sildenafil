@@ -8,13 +8,6 @@ import { log } from 'console';
 
 bridge(core, "core");
 
-core.testFunction({
-    a: 0,
-    b: '',
-    c: {
-        d: false
-    }
-})
 
 //TEMP
 const i18n = {

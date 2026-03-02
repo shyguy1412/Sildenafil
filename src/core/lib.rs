@@ -1,5 +1,6 @@
 mod events;
 use std::{
+    io::Read,
     path::{Path, PathBuf},
     sync::{Mutex, OnceLock, RwLock},
     thread::JoinHandle,
@@ -44,6 +45,20 @@ fn get_linux_events_location(ctx: &mut ModuleContext) -> NeonResult<String> {
     ))
 }
 
+fn get_linux_graphics_config() -> Result<String, Box<dyn std::error::Error>> {
+    const PATH: &str = "/home/shy/.local/share/Steam/steamapps/common/Elite Dangerous/Products/elite-dangerous-odyssey-64/GraphicsConfiguration.xml";
+    let mut contents = String::new();
+    let _ = std::fs::File::open(PATH)?.read_to_string(&mut contents);
+    Ok(contents)
+}
+
+#[export]
+fn get_graphics_config(ctx: &mut Cx<'_>) -> NeonResult<String> {
+    let conf = get_linux_graphics_config().map_err(|err| ctx.throw_error(err.to_string()).unwrap());
+
+    conf
+}
+
 static EVENT_THREAD: OnceLock<JoinHandle<()>> = OnceLock::new();
 
 #[main]
@@ -67,7 +82,7 @@ fn main(mut ctx: ModuleContext) -> NeonResult<()> {
 }
 
 #[export]
-fn resume() -> NeonResult<()> {
+fn resume(_: &mut Cx<'_>) -> NeonResult<()> {
     Ok(EVENT_THREAD
         .get()
         .map(|t| t.thread().unpark())
@@ -157,7 +172,7 @@ fn non_numeric(char: char) -> bool {
 }
 
 #[export(cb = "<T extends keyof EventVariants>(event:T, data:Event<T>) => void")]
-pub fn set_event_listener(cb: Root<JsFunction>) -> NeonResult<()> {
+pub fn set_event_listener(_: &mut Cx<'_>, cb: Root<JsFunction>) -> NeonResult<()> {
     let _ = EVENT_CALLBACK.write().map(|mut cell| cell.replace(cb));
     Ok(())
 }

@@ -112,9 +112,9 @@ async fn event_loop(events_location: &String) -> Option<()> {
     let file = &mut open_current_journal(&events_location).await?.lines();
 
     loop {
-        clock.next().await;
         let line = file.next().await;
         let Some(Ok(line)) = line else {
+            clock.next().await;
             continue;
         };
 

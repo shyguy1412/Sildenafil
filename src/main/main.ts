@@ -2,47 +2,55 @@ import * as path from 'path';
 import { app, BrowserWindow, Menu, MenuItem } from 'electron';
 
 import '@/lib/electron/main';
-import core from "@core";
+import core from '@core';
 import { bridge } from '@/lib/electron/ModuleBridge';
 import { log } from 'console';
 
-bridge(core, "core");
-
+bridge(core, 'core');
 
 //TEMP
 const i18n = {
-    t<T>(s: T) { return s; }
+    t<T>(s: T) {
+        return s;
+    },
 };
 
 function createMenu(): Menu {
     const menu = new Menu();
 
-    menu.append(new MenuItem({
-        label: i18n.t('Dev'),
-        submenu: [
-            {
-                label: i18n.t('Toggle Developer Tools'),
-                accelerator: 'ctrl+shift+i',
-                click: () => { BrowserWindow.getFocusedWindow()!.webContents.toggleDevTools(); }
-            }, {
-                label: i18n.t('Reload'),
-                accelerator: 'f5',
-                click: () => { BrowserWindow.getFocusedWindow()!.reload(); }
-            },
-            {
-                label: i18n.t('Exit'),
-                accelerator: 'esc',
-                click: () => { app.quit(); }
-            },
-        ]
-
-    }));
+    menu.append(
+        new MenuItem({
+            label: i18n.t('Dev'),
+            submenu: [
+                {
+                    label: i18n.t('Toggle Developer Tools'),
+                    accelerator: 'ctrl+shift+i',
+                    click: () => {
+                        BrowserWindow.getFocusedWindow()!.webContents.toggleDevTools();
+                    },
+                },
+                {
+                    label: i18n.t('Reload'),
+                    accelerator: 'f5',
+                    click: () => {
+                        BrowserWindow.getFocusedWindow()!.reload();
+                    },
+                },
+                {
+                    label: i18n.t('Exit'),
+                    accelerator: 'esc',
+                    click: () => {
+                        app.quit();
+                    },
+                },
+            ],
+        }),
+    );
 
     return menu;
 }
 
 function createWindow() {
-
     // Create the browser window.
     const width = 1300;
     const height = 700;
@@ -58,8 +66,7 @@ function createWindow() {
 
     if (process.env.DEV == 'true') {
         mainWindow.loadURL('http://127.0.0.1:3000');
-    }
-    else {
+    } else {
         mainWindow.loadFile(path.join(__dirname, 'main.html'));
     }
 
@@ -69,14 +76,13 @@ function createWindow() {
     return mainWindow;
 }
 
-
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 
 app.whenReady().then(async () => {
-    console.log("GOO");
-    
+    console.log('GOO');
+
     Menu.setApplicationMenu(createMenu());
     createWindow();
 });

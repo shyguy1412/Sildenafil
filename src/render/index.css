@@ -1,4 +1,133 @@
-html, body{
+@import url(@fontsource/libre-barcode-128-text);
+@import url(@fontsource-variable/kode-mono);
+
+html, body {
     width: 100%;
     height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+
+    background-color: var(--clr-surface-a0);
+
+    font-family: 'Kode Mono Variable';
+}
+
+* {
+    --r-out-r: calc(var(--red-matrix-r) * attr(data-r type(<number>), 1));
+    --r-out-g: calc(var(--red-matrix-g) * attr(data-r type(<number>), 1));
+    --r-out-b: calc(var(--red-matrix-b) * attr(data-r type(<number>), 1));
+
+    --g-out-r: calc(var(--green-matrix-r) * attr(data-g type(<number>), 0.5));
+    --g-out-g: calc(var(--green-matrix-g) * attr(data-g type(<number>), 0.5));
+    --g-out-b: calc(var(--green-matrix-b) * attr(data-g type(<number>), 0.5));
+
+    --b-out-r: calc(var(--blue-matrix-r) * attr(data-b type(<number>), 0));
+    --b-out-g: calc(var(--blue-matrix-g) * attr(data-b type(<number>), 0));
+    --b-out-b: calc(var(--blue-matrix-b) * attr(data-b type(<number>), 0));
+
+    --r-out-final: calc((var(--r-out-r) + var(--g-out-r) + var(--b-out-r)) * 255);
+    --g-out-final: calc((var(--r-out-g) + var(--g-out-g) + var(--b-out-g)) * 255);
+    --b-out-final: calc((var(--r-out-b) + var(--g-out-b) + var(--b-out-b)) * 255);
+
+    /** Theme primary colors */
+    --clr-primary-a0: rgb(var(--r-out-final) var(--g-out-final) var(--b-out-final));
+    --clr-primary-a10: lch(from var(--clr-primary-a0) calc(l + 10) c h);
+    --clr-primary-a20: lch(from var(--clr-primary-a0) calc(l + 20) c h);
+    --clr-primary-a30: lch(from var(--clr-primary-a0) calc(l + 30) c h);
+    --clr-primary-a40: lch(from var(--clr-primary-a0) calc(l + 40) c h);
+    --clr-primary-a50: lch(from var(--clr-primary-a0) calc(l + 50) c h);
+
+    color: var(--clr-primary-a0);
+}
+
+:root {
+    color-scheme: light dark;
+
+    /** Base colors */
+    --clr-dark-a0: #000000;
+    --clr-light-a0: #ffffff;
+
+    --red-matrix-r: attr(data-red-matrix-r type(<number>));
+    --red-matrix-g: attr(data-red-matrix-g type(<number>));
+    --red-matrix-b: attr(data-red-matrix-b type(<number>));
+    --green-matrix-r: attr(data-green-matrix-r type(<number>));
+    --green-matrix-g: attr(data-green-matrix-g type(<number>));
+    --green-matrix-b: attr(data-green-matrix-b type(<number>));
+    --blue-matrix-r: attr(data-blue-matrix-r type(<number>));
+    --blue-matrix-g: attr(data-blue-matrix-g type(<number>));
+    --blue-matrix-b: attr(data-blue-matrix-b type(<number>));
+
+    /* 
+        --clr-error: #ee260b;
+        --clr-warning: #ffae00;
+        --clr-success: #0b8600; 
+    */
+
+    /** Theme surface colors */
+    --clr-surface-dark-a0: #121212;
+    --clr-surface-dark-a10: lch(from var(--clr-surface-dark-a0) calc(l + 10) c h);
+    --clr-surface-dark-a20: lch(from var(--clr-surface-dark-a0) calc(l + 20) c h);
+    --clr-surface-dark-a30: lch(from var(--clr-surface-dark-a0) calc(l + 30) c h);
+    --clr-surface-dark-a40: lch(from var(--clr-surface-dark-a0) calc(l + 40) c h);
+    --clr-surface-dark-a50: lch(from var(--clr-surface-dark-a0) calc(l + 50) c h);
+
+    /** Theme foreground colors */
+    --clr-surface-light-a0: #ffffff;
+    --clr-surface-light-a10: lch(from var(--clr-surface-light-a0) calc(l - 10) c h);
+    --clr-surface-light-a20: lch(from var(--clr-surface-light-a0) calc(l - 20) c h);
+    --clr-surface-light-a30: lch(from var(--clr-surface-light-a0) calc(l - 30) c h);
+    --clr-surface-light-a40: lch(from var(--clr-surface-light-a0) calc(l - 40) c h);
+    --clr-surface-light-a50: lch(from var(--clr-surface-light-a0) calc(l - 50) c h);
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        /** Theme surface colors */
+        --clr-surface-a0: var(--clr-surface-light-a0);
+        --clr-surface-a10: var(--clr-surface-light-a10);
+        --clr-surface-a20: var(--clr-surface-light-a20);
+        --clr-surface-a30: var(--clr-surface-light-a30);
+        --clr-surface-a40: var(--clr-surface-light-a40);
+        --clr-surface-a50: var(--clr-surface-light-a50);
+
+        /** Theme foreground colors */
+        --clr-foreground-a0: var(--clr-surface-dark-a0);
+        --clr-foreground-a10: var(--clr-surface-dark-a10);
+        --clr-foreground-a20: var(--clr-surface-dark-a20);
+        --clr-foreground-a30: var(--clr-surface-dark-a30);
+        --clr-foreground-a40: var(--clr-surface-dark-a40);
+        --clr-foreground-a50: var(--clr-surface-dark-a50);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        /** Theme surface colors */
+        --clr-surface-a0: var(--clr-surface-dark-a0);
+        --clr-surface-a10: var(--clr-surface-dark-a10);
+        --clr-surface-a20: var(--clr-surface-dark-a20);
+        --clr-surface-a30: var(--clr-surface-dark-a30);
+        --clr-surface-a40: var(--clr-surface-dark-a40);
+        --clr-surface-a50: var(--clr-surface-dark-a50);
+
+        /** Theme foreground colors */
+        --clr-foreground-a0: var(--clr-surface-light-a0);
+        --clr-foreground-a10: var(--clr-surface-light-a10);
+        --clr-foreground-a20: var(--clr-surface-light-a20);
+        --clr-foreground-a30: var(--clr-surface-light-a30);
+        --clr-foreground-a40: var(--clr-surface-light-a40);
+        --clr-foreground-a50: var(--clr-surface-light-a50);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        color-scheme: light;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+    }
 }

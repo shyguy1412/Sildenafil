@@ -7,9 +7,12 @@
 	"settings": {
 		"typescript.tsdk": "node_modules/typescript/lib",
 		"typescript.enablePromptUseWorkspaceTsdk": true,
-		"deno.enable": false,
-		"deno.enablePaths": [
-			"./src/core/generateEventStructs.ts"
+		"deno.enable": true,
+		"deno.config": "./deno.jsonc",
+		"deno.disablePaths": [
+			"./src/main",
+			"./src/lib",
+			"./src/render",
 		]
 	}
 }

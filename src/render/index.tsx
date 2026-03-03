@@ -18,6 +18,7 @@ export const EventSystem = {
     dispatchEvent<T extends keyof EventVariants>(
         event: CustomEvent<CoreEvent<T>>,
     ): boolean {
+        console.log(event);
         return coreEventTarget.dispatchEvent(event);
     },
     removeEventListener(
@@ -29,8 +30,6 @@ export const EventSystem = {
     },
 };
 
-EventSystem.addEventListener('CommunityGoal', ({ detail: data }) => console.log(data));
-
 function Index({}: Props) {
     return <HelloWorld></HelloWorld>;
 }
@@ -38,6 +37,8 @@ __module_bridge_init.then(async () => {
     core.setEventListener((event, data) => {
         EventSystem.dispatchEvent(new CustomEvent(event, { detail: data }));
     });
+
+    core.resume();
 
     const graphics = await core.getGraphicsConfig();
     const parser = new DOMParser();
@@ -59,13 +60,12 @@ __module_bridge_init.then(async () => {
         { col: 'blue', value: ['0', '0', '1'] },
     ];
 
-
     const rgb = ['r', 'g', 'b'];
     for (const matrix of testData) {
         const col = matrix.col;
         for (const cur in rgb) {
             const attr = `data-${col}-matrix-${rgb[cur]}`;
-            document.body.parentElement!.setAttribute(attr, ""+(+matrix.value[cur]));
+            document.body.parentElement!.setAttribute(attr, '' + (+matrix.value[cur]));
         }
     }
 

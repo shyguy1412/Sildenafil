@@ -1,51 +1,25 @@
 mod events;
+mod journal;
+
 use std::{
     io::Read,
-    path::{Path, PathBuf},
-    sync::{Mutex, OnceLock, RwLock},
+    sync::{OnceLock, RwLock},
     thread::JoinHandle,
 };
 
 use bondage::*;
 use neon::prelude::*;
-use smol::{io::AsyncBufReadExt, stream::StreamExt};
 
-use crate::events::Event;
+use crate::{events::Event, journal::Journal};
+
+pub(crate) type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
 const EVENT_POLL_RATE: (u64, u64) = (60, 1000); //60 times per second in millis
 const EVENT_POLL_INTERVAL: u64 = EVENT_POLL_RATE.1 / EVENT_POLL_RATE.0;
 
 static EVENT_CALLBACK: RwLock<Option<Root<JsFunction>>> = RwLock::new(None);
 
-fn get_windows_events_location(ctx: &mut ModuleContext) -> NeonResult<String> {
-    //!This doesnt check for a steam lib on a different drive
-
-    let user_profile = std::env::var("USERPROFILE").map_err(|_| {
-        ctx.throw_error::<&str, std::convert::Infallible>("Can not access %USERPROFILE%")
-            .unwrap_err()
-    })?;
-
-    Ok(format!(
-        "{}\\Saved Games\\Frontier Developments\\Elite Dangerous",
-        user_profile
-    ))
-}
-
-fn get_linux_events_location(ctx: &mut ModuleContext) -> NeonResult<String> {
-    //!This doesnt check for a steam lib on a different drive
-
-    let user_home = std::env::var("HOME").map_err(|_| {
-        ctx.throw_error::<&str, std::convert::Infallible>("Can not access $HOME")
-            .unwrap_err()
-    })?;
-
-    Ok(format!(
-        "{}/.local/share/Steam/steamapps/compatdata/359320/pfx/drive_c/users/steamuser/Saved Games/Frontier Developments/Elite Dangerous",
-        user_home
-    ))
-}
-
-fn get_linux_graphics_config() -> Result<String, Box<dyn std::error::Error>> {
+fn get_linux_graphics_config() -> Result<String> {
     const PATH: &str = "/home/shy/.local/share/Steam/steamapps/common/Elite Dangerous/Products/elite-dangerous-odyssey-64/GraphicsConfiguration.xml";
     let mut contents = String::new();
     let _ = std::fs::File::open(PATH)?.read_to_string(&mut contents);
@@ -62,17 +36,16 @@ fn get_graphics_config(ctx: &mut Cx<'_>) -> NeonResult<String> {
 static EVENT_THREAD: OnceLock<JoinHandle<()>> = OnceLock::new();
 
 #[main]
-fn main(mut ctx: ModuleContext) -> NeonResult<()> {
-    let events_location = match std::env::consts::OS {
-        "windows" => get_windows_events_location(&mut ctx)?,
-        "linux" => get_linux_events_location(&mut ctx)?,
-        os => return ctx.throw_error(format!("`{}` is currently not supported", os))?,
-    };
-
+fn main(_: ModuleContext) -> NeonResult<()> {
     let event_thread = std::thread::spawn(move || {
+        std::thread::park();
+        let journal = &mut Journal::new();
         loop {
-            smol::block_on(event_loop(&events_location));
-            console_log("Restart Loop");
+            let event = journal.next();
+            match event {
+                Some(event) => dispatch_event(event),
+                None => std::thread::sleep(std::time::Duration::from_millis(20)),
+            }
         }
     });
 
@@ -89,87 +62,32 @@ fn resume(_: &mut Cx<'_>) -> NeonResult<()> {
         .unwrap_or(()))
 }
 
-static KNOWN_JOURNALS: Mutex<Vec<PathBuf>> = Mutex::new(vec![]);
+// async fn event_loop(events_location: &String) -> Option<()> {
+//     let mut clock = smol::Timer::interval(std::time::Duration::from_millis(EVENT_POLL_INTERVAL));
 
-async fn open_current_journal(
-    events_location: &String,
-) -> Option<smol::io::BufReader<smol::fs::File>> {
-    let current_journal = get_current_journal(&events_location)?;
+//     let file = &mut open_next_journal(&events_location).await?.lines();
 
-    let mut known_journals_lock = match KNOWN_JOURNALS.lock() {
-        Ok(lock) => lock,
-        Err(err) => err.into_inner(),
-    };
+//     loop {
+//         let line = file.next().await;
+//         let Some(Ok(line)) = line else {
+//             clock.next().await;
+//             continue;
+//         };
 
-    let is_known = known_journals_lock
-        .iter()
-        .any(|known_buff| *known_buff == current_journal);
+//         let event: Event = match serde_json::from_str(&line) {
+//             Ok(event) => event,
+//             Err(error) => {
+//                 console_log(format!("{error:?}: {line}"));
+//                 continue;
+//             }
+//         };
+//         console_log(event.name());
 
-    if is_known {
-        console_log("Waiting for new journal");
-        std::thread::park();
-        return None;
-    };
-
-    let file = smol::fs::File::open(&current_journal)
-        .await
-        .ok()
-        .map(smol::io::BufReader::new);
-
-    known_journals_lock.push(current_journal);
-
-    file
-}
-
-async fn event_loop(events_location: &String) -> Option<()> {
-    let mut clock = smol::Timer::interval(std::time::Duration::from_millis(EVENT_POLL_INTERVAL));
-
-    let file = &mut open_current_journal(&events_location).await?.lines();
-
-    loop {
-        let line = file.next().await;
-        let Some(Ok(line)) = line else {
-            clock.next().await;
-            continue;
-        };
-
-        let event: Event = match serde_json::from_str(&line) {
-            Ok(event) => event,
-            Err(error) => {
-                console_log(format!("{error:?}: {line}"));
-                continue;
-            }
-        };
-        console_log(event.name());
-
-        if let events::Event::Shutdown(..) = event {
-            return None;
-        }
-    }
-}
-
-fn get_current_journal(path: &String) -> Option<PathBuf> {
-    let Ok(files) = std::fs::read_dir(path) else {
-        return None;
-    };
-
-    let mut files: Vec<_> = files
-        .filter_map(|file| file.ok())
-        .filter_map(|file| file.file_name().into_string().ok())
-        .map(|file| (file.replace(non_numeric, ""), file))
-        .filter_map(|(date, file)| u64::from_str_radix(&date, 10).ok().map(|date| (file, date)))
-        .collect();
-
-    files.sort_by(|a, b| a.1.cmp(&b.1));
-
-    let current_journal = files.pop().map(|(f, _)| Path::new(path).join(f));
-
-    current_journal
-}
-
-fn non_numeric(char: char) -> bool {
-    !char.is_numeric()
-}
+//         if let events::Event::Shutdown(..) = event {
+//             return None;
+//         }
+//     }
+// }
 
 #[export(cb = "<T extends keyof EventVariants>(event:T, data:Event<T>) => void")]
 pub fn set_event_listener(_: &mut Cx<'_>, cb: Root<JsFunction>) -> NeonResult<()> {

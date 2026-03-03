@@ -4,7 +4,6 @@ import { app, BrowserWindow, Menu, MenuItem } from 'electron';
 import '@/lib/electron/main';
 import core from '@core';
 import { bridge } from '@/lib/electron/ModuleBridge';
-import { log } from 'console';
 
 bridge(core, 'core');
 
@@ -81,8 +80,6 @@ function createWindow() {
 // Some APIs can only be used after this event occurs.
 
 app.whenReady().then(async () => {
-    console.log('GOO');
-
     Menu.setApplicationMenu(createMenu());
     createWindow();
 });
